@@ -1,59 +1,73 @@
-# BraindemyWeb
+# 🎨 Braindemy Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+> **Proyecto académico** desarrollado como parte de una práctica para el desarrollo de software.
+>
+> Este repositorio contiene la **interfaz web** de la plataforma **Braindemy**, un entorno educativo diseñado para la gestión de cursos, usuarios (docentes, alumnos y administradores), inscripciones, pagos, transmisiones en vivo y comunicación en tiempo real.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🎯 Objetivo del proyecto
 
-```bash
-ng serve
+El propósito de este proyecto es **aplicar principios modernos de desarrollo frontend** mediante el uso del framework **Angular**, implementando componentización, modularización y *lazy loading* para garantizar una arquitectura escalable y mantenible.
+
+El proyecto **no tiene fines comerciales** y se encuentra en **etapa de desarrollo académico**, por lo que pueden existir errores.
+
+---
+
+## 🛠️ Tecnologías principales
+
+| 🧩 **Componente** | ⚙️ **Tecnología / Herramienta** | 📝 **Descripción** |
+| :--- | :---: | :--- |
+| **Framework Frontend** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/Angular-Dark.svg" width="40" height="40"><br>**Angular 18** | Framework moderno basado en TypeScript para construir aplicaciones web escalables. |
+| **Lenguaje** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/TypeScript.svg" width="40" height="40"><br>**TypeScript** | Lenguaje tipado que mejora la mantenibilidad y robustez del código. |
+| **Estilos / UI** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/Bootstrap.svg" width="40" height="40"><br>**Bootstrap** | Framework utilitario para construir interfaces rápidas y modernas. |
+| **Routing** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/Angular-Light.svg" width="40" height="40"><br>**Angular Router** | Sistema de enrutamiento modular y dinámico con soporte para *lazy loading*. |
+| **Autenticación** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/Angular-Light.svg" width="40" height="40"><br>**Auth Guards / Services** | Sistema de protección de rutas y gestión de sesión de usuario. |
+| **Backend API** | <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/refs/heads/main/icons/NestJS-Dark.svg" width="40" height="40"><br>**NestJS REST API** | Comunicación con el backend de Braindemy mediante *HTTP Services*. |
+
+---
+
+## 📁 Estructura general del proyecto
+
+```text
+src/
+ ├── app/
+ │   ├── core/                # Servicios globales, guards, interceptores, etc.
+ │   ├── shared/              # Componentes y utilidades reutilizables
+ │   ├── features/
+ │   │   ├── public/          # Landing page, about, contact
+ │   │   ├── auth/            # Login, registro, recuperación de cuenta
+ │   │   ├── teacher/         # Panel y gestión de cursos del docente
+ │   │   └── admin/           # Panel administrativo del sistema
+ │   ├── app.module.ts
+ │   └── app-routing-module.ts
+ ├── assets/
+ └── environments/
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Scripts principales
 
-## Code scaffolding
+| Comando | Descripción |
+| :--- | :--- |
+| `npm start` | Inicia el servidor de desarrollo en `http://localhost:4200/` |
+| `npm run build` | Genera la versión de producción del proyecto |
+| `npm run lint` | Analiza el código para verificar buenas prácticas |
+| `ng g c <nombre>` | Genera un nuevo componente Angular |
+| `ng g module <nombre>` | Crea un nuevo módulo de funcionalidad |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🔒 Autenticación y seguridad
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+El sistema implementa *guards* (`CanActivate`, `CanActivateChild`) para restringir el acceso según el rol del usuario (docente, administrador).
 
-```bash
-ng generate --help
-```
+La comunicación con el backend se realiza mediante servicios HTTP centralizados y un sistema de interceptores para el manejo de tokens y errores.
 
-## Building
+---
 
-To build the project run:
+## 📦 Estado del proyecto
 
-```bash
-ng build
-```
+🚧 **En desarrollo** — Este repositorio forma parte del ecosistema Braindemy, junto con el backend desarrollado en NestJS.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Puede contener errores o funcionalidades incompletas debido a su naturaleza académica.
