@@ -2,16 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Navbar } from './navbar/navbar';
 import { Footer } from './footer/footer';
+import { RouterModule } from '@angular/router';
+import { TeacherNavbar } from './teacher-navbar/teacher-navbar';
+import { AdminNavbar } from './admin-navbar/admin-navbar';
 
 
 
 @NgModule({
   declarations: [
     Navbar,
-    Footer
+    Footer,
+    TeacherNavbar,
+    AdminNavbar
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
+  ],
+  exports: [
+    Navbar
   ]
 })
 export class SharedModule { }

@@ -5,8 +5,8 @@ import { About } from './about/about';
 import { Contact } from './contact/contact';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/'},
-  { path: '/', component: Landing },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: 'landing', component: Landing },
   { path: 'about', component: About },
   { path: 'contact', component: Contact }
 ];

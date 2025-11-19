@@ -1,0 +1,21 @@
+.custom-navbar {
+  background-color: #1ABC9C !important;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+  color: white !important;
+}
+
+.custom-navbar .btn {
+  color: #1ABC9C !important;
+  background-color: white !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}

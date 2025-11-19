@@ -1,1 +1,34 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+
+    <a class="navbar-brand fw-bold" routerLink="">Braindemy</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- Items alineados a la izquierda -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about" routerLinkActive="active">Acerca de nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contact" routerLinkActive="active">Contactos</a>
+        </li>
+      </ul>
+
+      <!-- Botón alineado a la derecha -->
+      <div class="d-flex">
+        <a routerLink="/auth/login" class="btn btn-light fw-semibold">
+          Iniciar sesión
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
