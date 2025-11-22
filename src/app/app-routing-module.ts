@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicModule } from './features/public/public-module';
 import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
+import { teacherGuard } from './core/guards/teacher-guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   }, 
   { 
     path: 'teacher',
-    canActivate: [authGuard],
+    canActivate: [authGuard, teacherGuard],
     loadChildren: () => 
       import('./features/teacher/teacher-module').then(m => m.TeacherModule) 
   }, 

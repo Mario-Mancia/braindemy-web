@@ -20,7 +20,10 @@ import { AdminNavbar } from './admin-navbar/admin-navbar';
     RouterModule
   ],
   exports: [
-    Navbar
+    Navbar,
+    TeacherNavbar,
+    AdminNavbar,
+    Footer
   ]
 })
 export class SharedModule { }

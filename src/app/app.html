@@ -1,12 +1,14 @@
-<!--
+
 <app-navbar *ngIf="currentSection() === 'public'"></app-navbar>
 
 <app-teacher-navbar *ngIf="currentSection() === 'teacher'"></app-teacher-navbar>
 
-<app-admin-navbar *ngIf="currentSection() === 'admin'"></app-admin-navbar> -->
+<app-admin-navbar *ngIf="currentSection() === 'admin'"></app-admin-navbar>
 
-<app-navbar></app-navbar>
+<!--<app-navbar></app-navbar>-->
 
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>
+
+<app-footer></app-footer>

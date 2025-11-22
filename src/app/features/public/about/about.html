@@ -1,2 +1,157 @@
-<h1>Acerca de nosotros</h1>
-<p>Esta es la página About.</p>
+<!-- Portada / Banner -->
+<section class="about-banner position-relative">
+  <!-- Overlay y Imagen -->
+  <div class="banner-img-wrapper">
+    <img src="Portada.png" alt="Portada Braindemy" class="img-fluid w-100 h-100 object-fit-cover" loading="lazy">
+    <div class="banner-overlay"></div>
+  </div>
+
+  <div class="container h-100 position-relative d-flex align-items-end justify-content-center pb-5">
+    <h1 class="banner-title text-center">Sobre Braindemy</h1>
+  </div>
+</section>
+
+<!-- Acerca de nosotros -->
+<section class="section-default py-5">
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="fw-bold mb-4 section-title">Acerca de nosotros</h2>
+        <p class="content-text fs-5">
+          Braindemy permite a los instructores impartir clases y establecer precios o planes
+          para cada curso según su criterio. El objetivo de la plataforma es ofrecer una
+          experiencia cómoda, accesible y fácil de usar, cumpliendo con altos estándares de
+          diseño, funcionalidad y legalidad, para garantizar a nuestros usuarios un servicio seguro.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cards: Misión, Visión, Valores -->
+<!-- Usamos section-default para mantener fondo limpio, las cards darán el contraste -->
+<section class="section-default pb-5">
+  <div class="container">
+    <div class="info-cards-grid">
+      
+      <!-- Card Misión -->
+      <div class="custom-card shadow-sm" (click)="missionOpen = !missionOpen" [class.active-card]="missionOpen">
+        <div class="card-content">
+          <div class="icon-container mb-3">
+            <i class="bi bi-bullseye feature-icon"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-0">Misión</h3>
+          
+          <button class="expand-btn" [attr.aria-expanded]="missionOpen">
+            <i class="bi" [class.bi-plus]="!missionOpen" [class.bi-dash]="missionOpen"></i>
+          </button>
+
+          <div class="expandable-content" [class.open]="missionOpen">
+            <p class="content-text mt-3 mb-0">
+              Nuestra misión es proporcionar herramientas y una plataforma intuitiva para que
+              los instructores puedan compartir su conocimiento con el mundo.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Visión -->
+      <div class="custom-card shadow-sm" (click)="visionOpen = !visionOpen" [class.active-card]="visionOpen">
+        <div class="card-content">
+          <div class="icon-container mb-3">
+            <i class="bi bi-eye feature-icon"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-0">Visión</h3>
+
+          <button class="expand-btn" [attr.aria-expanded]="visionOpen">
+            <i class="bi" [class.bi-plus]="!visionOpen" [class.bi-dash]="visionOpen"></i>
+          </button>
+
+          <div class="expandable-content" [class.open]="visionOpen">
+            <p class="content-text mt-3 mb-0">
+              Ser la plataforma educativa líder en accesibilidad, calidad y conectividad entre
+              instructores y estudiantes.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Valores -->
+      <div class="custom-card shadow-sm" (click)="valuesOpen = !valuesOpen" [class.active-card]="valuesOpen">
+        <div class="card-content">
+          <div class="icon-container mb-3">
+            <i class="bi bi-stars feature-icon"></i>
+          </div>
+          <h3 class="fw-bold h4 mb-0">Valores</h3>
+
+          <button class="expand-btn" [attr.aria-expanded]="valuesOpen">
+            <i class="bi" [class.bi-plus]="!valuesOpen" [class.bi-dash]="valuesOpen"></i>
+          </button>
+
+          <ul class="card-list expandable-content" [class.open]="valuesOpen">
+            <li>Responsabilidad</li>
+            <li>Trabajo en equipo</li>
+            <li>Innovación constante</li>
+            <li>Integridad y transparencia</li>
+            <li>Impacto educativo</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ¿Por qué elegirnos? -->
+<section class="section-alternate py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold section-title">¿Por qué elegirnos?</h2>
+      <p class="content-text">Razones por las que somos tu mejor opción</p>
+    </div>
+
+    <div class="why-us-grid">
+
+      <div class="why-card p-4 text-center h-100">
+        <div class="why-icon mb-3">
+          <i class="bi bi-shield-check"></i>
+        </div>
+        <h3 class="h5 fw-bold mb-2">Seguridad primero</h3>
+        <p class="content-text small mb-0">
+          Implementamos prácticas sólidas para garantizar seguridad y tranquilidad a nuestros usuarios.
+        </p>
+      </div>
+
+      <div class="why-card p-4 text-center h-100">
+        <div class="why-icon mb-3">
+          <i class="bi bi-rocket-takeoff"></i>
+        </div>
+        <h3 class="h5 fw-bold mb-2">Crecimiento constante</h3>
+        <p class="content-text small mb-0">
+          Mejoramos continuamente para ofrecer una plataforma moderna, estable y en evolución.
+        </p>
+      </div>
+
+      <div class="why-card p-4 text-center h-100">
+        <div class="why-icon mb-3">
+          <i class="bi bi-people"></i>
+        </div>
+        <h3 class="h5 fw-bold mb-2">Compromiso real</h3>
+        <p class="content-text small mb-0">
+          Creemos en la transparencia, el esfuerzo y el acompañamiento directo a nuestra comunidad.
+        </p>
+      </div>
+
+      <div class="why-card p-4 text-center h-100">
+        <div class="why-icon mb-3">
+          <i class="bi bi-mortarboard"></i>
+        </div>
+        <h3 class="h5 fw-bold mb-2">Enfoque educativo</h3>
+        <p class="content-text small mb-0">
+          Impulsamos el aprendizaje mediante contenidos accesibles, claros y de calidad.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>

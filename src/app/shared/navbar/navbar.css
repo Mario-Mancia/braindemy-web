@@ -1,21 +1,154 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES (Consistencia con tema) */
+/* ============================================ */
+:host {
+  /* LIGHT MODE: Fondo con un toque de verde corporativo claro */
+  --navbar-bg-color: var(--navbar-bg); 
+  --navbar-text-color: #e9ecef; 
+  --navbar-link-active: #1e1e1e;
+  --navbar-border: rgba(0,0,0,0.08);
+
+  /* Botón CTA (btn-light se transforma) */
+  --btn-bg: #e9ecef;
+  --btn-text: #0D4936;
+  --btn-bg-hover: var(--brand-green);
+}
+
+/* DARK MODE OVERRIDES */
+:host-context([data-bs-theme="dark"]) {
+  /* DARK MODE: Fondo verde oscuro y profundo */
+  --navbar-bg-color: #0D4936; 
+  --navbar-text-color: #e9ecef;
+  --navbar-link-active: #2ecc71;
+  --navbar-border: #333;
+
+  /* Botón CTA */
+  --btn-bg: #2ecc71;
+  --btn-text: #1e1e1e;
+  --btn-bg-hover: #27ae60;
+}
+
+/* ============================================ */
+/* 2. ESTRUCTURA Y BRANDING                     */
+/* ============================================ */
 .custom-navbar {
-  background-color: #1ABC9C !important;
+  background-color: var(--navbar-bg-color) !important;
+  border-bottom: 1px solid var(--navbar-border);
+  transition: all 0.3s ease; /* Transición para el cambio de modo */
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.custom-navbar .nav-link,
 .custom-navbar .navbar-brand {
-  color: white !important;
+    color: var(--navbar-text-color) !important;
+    font-size: 1.5rem;
 }
 
-.custom-navbar .btn {
-  color: #1ABC9C !important;
-  background-color: white !important;
+.custom-navbar .brand-text {
+    color: var(--navbar-text-color); 
 }
 
+.logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+/* Aplicar un filtro al logo en Dark Mode si el original es claro */
+:host-context([data-bs-theme="dark"]) .logo {
+    filter: brightness(120%) contrast(100%); /* Ajuste sutil para mantener el logo visible sobre fondo oscuro */
+}
+
+/* Toggler y su icono */
 .navbar-toggler {
-  border-color: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid var(--navbar-border) !important;
 }
 
 .navbar-toggler-icon {
-  filter: brightness(0) invert(1);
+  filter: invert(var(--navbar-text-filter, 0)); 
+}
+:host-context([data-bs-theme="dark"]) .navbar-toggler-icon {
+  filter: invert(1) brightness(100%);
+}
+:host-context([data-bs-theme="dark"]) .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ============================================ */
+/* 3. ENLACES Y ESTADO ACTIVO                   */
+/* ============================================ */
+.nav-link {
+  color: var(--navbar-text-color) !important;
+  font-weight: 500;
+  padding-bottom: 0.6rem !important;
+  margin: 0 0.5rem;
+  
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--navbar-link-active) !important;
+}
+
+/* Barra inferior para el enlace activo/hover */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background-color: var(--navbar-link-active);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Barra activa */
+.nav-link.active::after {
+  width: 80%;
+}
+
+/* Barra al hacer hover (si no está activa) */
+.nav-link:not(.active):hover::after {
+    width: 30%;
+}
+
+/* ============================================ */
+/* 4. BOTÓN CTA (Aplicando estilo Primario a btn-light) */
+/* ============================================ */
+.btn-primary-style {
+  background-color: var(--btn-bg) !important;
+  border: none !important;
+  color: var(--btn-text) !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-style:hover {
+  background-color: var(--btn-bg-hover) !important;
+  color: var(--btn-text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(26, 188, 156, 0.3);
+}
+
+/* Estilo para mobile (el botón se convierte en un link sutil) */
+@media (max-width: 991.98px) {
+  .btn-primary-style {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    
+    background-color: transparent !important;
+    color: var(--navbar-link-active) !important;
+    border: 1px solid var(--navbar-link-active) !important;
+    transform: none;
+    box-shadow: none;
+  }
+  .btn-primary-style:hover {
+    background-color: rgba(26, 188, 156, 0.1) !important;
+  }
 }

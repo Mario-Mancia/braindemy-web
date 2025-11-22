@@ -10,14 +10,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    Auth,
-    Register
+    Auth
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
+    ReactiveFormsModule,
     Login,
-    ReactiveFormsModule
+    Register
   ]
 })
 export class AuthModule { }

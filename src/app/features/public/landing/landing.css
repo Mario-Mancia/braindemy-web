@@ -1,0 +1,146 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES & DEFAULTS (LIGHT)      */
+/* ============================================ */
+:host {
+  /* Mapeamos las variables globales a variables locales semánticas */
+  --bg-section-default: var(--surface-light);
+  --bg-section-alt: #f8f9fa; /* Un gris muy suave para alternar en light */
+  --bg-card: var(--surface-light);
+  
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  --hero-bg: var(--brand-green);
+  --icon-color: var(--brand-green);
+  
+  display: block; /* Buena práctica en Angular */
+}
+
+/* ============================================ */
+/* 2. COMPORTAMIENTO DARK MODE                  */
+/* ============================================ */
+/* Usamos :host-context para escuchar la clase en el padre (body/html) */
+:host-context([data-bs-theme="dark"]) {
+  --bg-section-default: var(--surface-dark); /* #1e1e1e */
+  --bg-section-alt: #121212; /* Un poco más oscuro que el surface normal para contraste */
+  --bg-card: #252525; /* Tarjetas ligeramente más claras que el fondo */
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  --hero-bg: var(--brand-green-dark);
+  /* Hacemos el icono más brillante en dark mode para contraste */
+  --icon-color: #2ecc71; 
+}
+
+/* ============================================ */
+/* 3. ESTILOS GENERALES DE TEXTO Y FONDO        */
+/* ============================================ */
+
+/* Aplicación de colores de texto */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-main);
+}
+
+.subtitle-text, 
+.content-text,
+.card-text {
+  color: var(--text-muted-local);
+}
+
+/* Fondos de Sección */
+.section-default {
+  background-color: var(--bg-section-default);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.section-alternate {
+  background-color: var(--bg-section-alt);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================ */
+/* 4. COMPONENTES ESPECÍFICOS                   */
+/* ============================================ */
+
+/* --- HERO --- */
+.hero-banner {
+  background-color: var(--hero-bg);
+  min-height: 60vh; /* Aumenté un poco para mejor estética */
+  color: white; /* El texto del hero siempre blanco por contraste con el verde */
+  transition: background-color 0.3s ease;
+}
+
+.hero-banner h1 {
+  color: white !important;
+}
+
+
+.hero-logo {
+  max-width: 280px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+/* Botón del Hero (Opcional si lo usas) */
+.text-brand {
+  color: var(--brand-green);
+}
+
+/* --- CARDS --- */
+.custom-card {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important; /* Force shadow visibility */
+}
+
+/* --- ICONOS --- */
+.feature-icon {
+  font-size: 3.5rem;
+  color: var(--icon-color);
+  opacity: 0.9;
+  transition: transform 0.3s ease;
+}
+
+.feature-icon-small {
+  font-size: 2rem;
+  color: var(--icon-color);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon,
+.feature-item:hover .feature-icon-small {
+  transform: scale(1.15);
+}
+
+.hover-card:hover .feature-icon {
+  transform: scale(1.1);
+}
+
+/* --- STEPS (CÓMO FUNCIONA) --- */
+.step-number {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: var(--brand-green); /* Siempre verde marca */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4); /* Sombra coloreada sutil */
+}
+
+/* Ajuste para dark mode del número si se desea que cambie, 
+   pero el brand green suele verse bien en ambos. 
+   Si el fondo es dark, quitamos un poco de brillo a la sombra */
+:host-context([data-bs-theme="dark"]) .step-number {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}

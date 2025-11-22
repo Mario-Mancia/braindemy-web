@@ -1,0 +1,183 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES (Consistencia con tema) */
+/* ============================================ */
+:host {
+  /* LIGHT MODE: Fondo con un toque de verde corporativo claro */
+  --navbar-bg-color: var(--navbar-bg); 
+  --navbar-text-color: #e9ecef; 
+  --navbar-link-active: #1e1e1e;
+  --navbar-border: rgba(0,0,0,0.08);
+
+  /* Botones de Acción (Notificaciones, Dropdown) */
+  --btn-icon-color: var(--navbar-text-color);
+  --btn-icon-hover-bg: rgba(0, 0, 0, 0.08);
+}
+
+/* DARK MODE OVERRIDES */
+:host-context([data-bs-theme="dark"]) {
+  /* DARK MODE: Fondo verde oscuro y profundo */
+  --navbar-bg-color: #0D4936; 
+  --navbar-text-color: #e9ecef;
+  --navbar-link-active: #2ecc71;
+  --navbar-border: #333;
+
+  /* Botones de Acción (Notificaciones, Dropdown) */
+  --btn-icon-color: #e9ecef;
+  --btn-icon-hover-bg: rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================ */
+/* 2. ESTRUCTURA BASE (Heredada del Navbar Público) */
+/* ============================================ */
+.custom-navbar {
+  background-color: var(--navbar-bg-color) !important;
+  border-bottom: 1px solid var(--navbar-border);
+  transition: all 0.3s ease; /* Transición para el cambio de modo */
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.custom-navbar-teacher .navbar-brand,
+.custom-navbar-teacher .brand-text {
+    color: var(--navbar-text-color) !important;
+    font-size: 1.5rem;
+}
+
+.custom-navbar-teacher .logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+/* Filtro de logo en Dark Mode */
+:host-context([data-bs-theme="dark"]) .custom-navbar-teacher .logo {
+    filter: brightness(120%) contrast(100%);
+}
+
+/* Toggler y su icono (Consistente) */
+.navbar-toggler {
+  border: 1px solid var(--navbar-border) !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(var(--navbar-text-filter, 0)); 
+}
+:host-context([data-bs-theme="dark"]) .navbar-toggler-icon {
+  filter: invert(1) brightness(100%);
+}
+:host-context([data-bs-theme="dark"]) .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ============================================ */
+/* 3. ENLACES Y ESTADO ACTIVO (Consistente)     */
+/* ============================================ */
+.custom-navbar-teacher .nav-link {
+  color: var(--navbar-text-color) !important;
+  font-weight: 500;
+  padding-bottom: 0.6rem !important;
+  margin: 0 0.5rem;
+  
+  /* Animación para el indicador activo (Barra inferior) */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar-teacher .nav-link:hover {
+  color: var(--navbar-link-active) !important;
+}
+
+/* Barra inferior para el enlace activo/hover */
+.custom-navbar-teacher .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background-color: var(--navbar-link-active);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Barra activa */
+.custom-navbar-teacher .nav-link.active::after {
+  width: 80%;
+}
+
+/* Barra al hacer hover (si no está activa) */
+.custom-navbar-teacher .nav-link:not(.active):hover::after {
+    width: 30%;
+}
+
+/* ============================================ */
+/* 4. ELEMENTOS DE ACCIÓN (Derecha)             */
+/* ============================================ */
+
+/* Botones de Notificación/Dropdown (Clase compartida con Admin) */
+.btn-admin-action {
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--btn-icon-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.btn-admin-action:hover,
+.btn-admin-action:focus {
+  background-color: var(--btn-icon-hover-bg) !important;
+  color: var(--navbar-link-active) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+/* Iconos dentro de los botones de acción */
+.btn-icon i {
+  color: var(--btn-icon-color) !important;
+}
+
+/* Avatar del usuario */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    padding: 0.5rem;
+}
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dropdown-item:active {
+    background-color: var(--navbar-link-active);
+    color: white;
+}
+.dropdown-item i {
+  font-size: 1.1rem;
+}
+
+/* Mobile specific */
+@media (max-width: 991.98px) {
+  .custom-navbar-teacher .navbar-nav {
+    margin-bottom: 1rem;
+  }
+  .custom-navbar-teacher .nav-item {
+    width: 100%;
+  }
+  .custom-navbar-teacher .nav-link {
+    margin: 0;
+    padding-left: 0.5rem !important;
+  }
+  .custom-navbar-teacher .nav-link::after {
+      /* Ocultar la barra en mobile para el menú expandido */
+      display: none;
+  }
+}

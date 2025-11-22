@@ -1,0 +1,229 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES (Consistent con Landing) */
+/* ============================================ */
+:host {
+  /* Fondos */
+  --bg-section-default: var(--surface-light);
+  --bg-section-alt: #f8f9fa;
+  --bg-card: #ffffff;
+  
+  /* Textos */
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  /* Elementos UI */
+  --icon-color: var(--brand-green);
+  --btn-expand-bg: #f0f2f5;
+  --btn-expand-color: #333;
+  --border-color: #eaeaea;
+  
+  /* Sombras */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  display: block;
+}
+
+/* DARK MODE OVERRIDES */
+:host-context([data-bs-theme="dark"]) {
+  --bg-section-default: var(--surface-dark);
+  --bg-section-alt: #121212;
+  --bg-card: #252525;
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  /* Iconos más brillantes en oscuro */
+  --icon-color: #2ecc71; 
+  
+  /* Botones adaptados */
+  --btn-expand-bg: #333;
+  --btn-expand-color: #eee;
+  --border-color: #444;
+  
+  /* Sombra más sutil en oscuro */
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* ============================================ */
+/* 2. ESTILOS GENERALES                         */
+/* ============================================ */
+
+h1, h2, h3, h4, h5 {
+  color: var(--text-main);
+}
+
+.content-text {
+  color: var(--text-muted-local);
+  line-height: 1.7;
+}
+
+.section-default {
+  background-color: var(--bg-section-default);
+  transition: background-color 0.3s ease;
+}
+
+.section-alternate {
+  background-color: var(--bg-section-alt);
+  transition: background-color 0.3s ease;
+}
+
+/* ============================================ */
+/* 3. BANNER PRINCIPAL                          */
+/* ============================================ */
+.about-banner {
+  height: 60vh; /* Altura controlada */
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-img-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.75)
+  );
+}
+
+.banner-title {
+  /* Siempre blanco porque está sobre imagen oscura */
+  color: white !important;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+  z-index: 1;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================ */
+/* 4. CARDS DESPLEGABLES (Misión/Visión)        */
+/* ============================================ */
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.custom-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.custom-card:hover,
+.custom-card.active-card {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.icon-container .feature-icon {
+  font-size: 3rem;
+  color: var(--icon-color);
+  transition: transform 0.3s ease;
+}
+
+.custom-card:hover .feature-icon {
+  transform: scale(1.1);
+}
+
+/* Botón Expandir (+) */
+.expand-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--btn-expand-bg);
+  color: var(--btn-expand-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px; /* Un poco más grande para tactil */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.expand-btn:hover {
+  filter: brightness(0.95);
+  transform: scale(1.1);
+}
+
+/* Animación de contenido */
+.expandable-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.expandable-content.open {
+  max-height: 400px; /* Valor seguro */
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+/* Lista de valores */
+.card-list {
+  padding-left: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.card-list li {
+  padding: 10px 0;
+  color: var(--text-muted-local);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-list li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================ */
+/* 5. SECCIÓN WHY US (Grid)                     */
+/* ============================================ */
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.why-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.why-icon {
+  font-size: 2.5rem;
+  color: var(--icon-color); /* Unificamos el color con el de arriba */
+}

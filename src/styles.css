@@ -1,1 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+/* --------------------------------------------- */
+/* 1. Google Fonts                               */
+/* --------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+
+/* --------------------------------------------- */
+/* 2. Tipografía Global                          */
+/* --------------------------------------------- */
+:root {
+  --font-primary: 'Exo 2', sans-serif;
+  --font-secondary: 'Roboto', sans-serif;
+
+  /* Sobrescribe tipografía base de Bootstrap */
+  --bs-body-font-family: var(--font-primary);
+}
+
+body {
+  font-family: var(--font-primary);
+}
+
+
+/* --------------------------------------------- */
+/* 3. Paleta de Colores Global                   */
+/* --------------------------------------------- */
+:root {
+  /* Identidad */
+  --brand-green: #1ABC9C;
+  --brand-green-dark: #0f2f2c;
+
+  /* Superficies */
+  --surface-light: #ffffff;
+  --surface-dark: #1e1e1e;
+
+  /* Texto */
+  --text-light: #222;
+  --text-dark: #e5e5e5;
+
+  /* Texto secundario */
+  --muted-light: #555;
+  --muted-dark: #aaa;
+}
+
+
+/* --------------------------------------------- */
+/* 4. Tema Claro                                 */
+/* --------------------------------------------- */
+:root[data-bs-theme="light"] {
+  --navbar-bg: var(--brand-green);
+  --navbar-text: #ffffff;
+
+  --navbar-btn-bg: #ffffff;
+  --navbar-btn-text: var(--brand-green);
+
+  --navbar-toggler-border: rgba(255, 255, 255, 0.5);
+  --navbar-toggler-icon-filter: brightness(0) invert(1);
+}
+
+
+/* --------------------------------------------- */
+/* 5. Tema Oscuro                                */
+/* --------------------------------------------- */
+:root[data-bs-theme="dark"] {
+  --navbar-bg: var(--brand-green-dark);
+  --navbar-text: #ffffff;
+
+  --navbar-btn-bg: var(--brand-green);
+  --navbar-btn-text: #ffffff;
+
+  --navbar-toggler-border: rgba(255, 255, 255, 0.4);
+  --navbar-toggler-icon-filter: brightness(0) invert(1);
+}
+
+
+/* --------------------------------------------- */
+/* 6. Layout general (para footer al fondo)      */
+/* --------------------------------------------- */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet {
+  flex: 1;
+}

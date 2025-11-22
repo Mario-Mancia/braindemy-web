@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './about.css',
 })
 export class About {
-
+  missionOpen = false;
+  visionOpen = false;
+  valuesOpen = false;
 }

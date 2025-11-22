@@ -1,0 +1,120 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES                         */
+/* ============================================ */
+:host {
+  /* Fondos */
+  --bg-section-default: var(--surface-light);
+  --bg-card: #ffffff;
+  
+  /* Textos */
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  /* UI Elements */
+  --icon-color: var(--brand-green);
+  --hero-bg: var(--brand-green); /* Fondo base del banner */
+
+  /* Sombras (Mismo estilo que en landing/about) */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  display: block;
+}
+
+/* DARK MODE OVERRIDES */
+:host-context([data-bs-theme="dark"]) {
+  --bg-section-default: var(--surface-dark);
+  --bg-card: #252525;
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  /* Ajuste de banner en dark mode para que no sea tan brillante */
+  --hero-bg: var(--brand-green-dark);
+  
+  /* Iconos más brillantes para contraste */
+  --icon-color: #2ecc71; 
+  
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-card-hover: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* ============================================ */
+/* 2. ESTILOS GENERALES                         */
+/* ============================================ */
+h1, h2, h3, h4 {
+  color: var(--text-main);
+}
+
+.content-text {
+  color: var(--text-muted-local);
+}
+
+.section-default {
+  background-color: var(--bg-section-default);
+  transition: background-color 0.3s ease;
+}
+
+/* ============================================ */
+/* 3. BANNER DE CONTACTO                        */
+/* ============================================ */
+.contact-banner {
+  width: 100%;
+  min-height: 35vh; /* Responsive: altura mínima pero crece si es necesario */
+  background-color: var(--hero-bg);
+  /* El texto SIEMPRE es blanco sobre el fondo de color/imagen */
+  color: white; 
+  transition: background-color 0.3s ease;
+}
+
+/* Forzar blanco en títulos dentro del banner */
+.contact-banner h1,
+.contact-banner .banner-subtitle {
+  color: white !important;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  /* Overlay sutil para dar profundidad */
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%);
+}
+
+.banner-title {
+  font-size: 3rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ============================================ */
+/* 4. TARJETAS DE CONTACTO                      */
+/* ============================================ */
+.intro-text {
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.custom-card {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  /* Importante para que el contenido no se desborde en pantallas pequeñas */
+  word-wrap: break-word; 
+}
+
+.custom-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Iconos unificados con el resto del sitio */
+.contact-icon {
+  font-size: 3rem;
+  color: var(--icon-color);
+  transition: transform 0.3s ease;
+}
+
+.custom-card:hover .contact-icon {
+  transform: scale(1.1);
+}

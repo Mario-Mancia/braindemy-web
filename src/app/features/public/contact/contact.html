@@ -1,2 +1,69 @@
-<h1>Contacto</h1>
-<p>Aquí puedes contactarnos.</p>
+<!-- Banner / Header -->
+<!-- Usamos position-relative para contener el overlay y z-index para el texto -->
+<section class="contact-banner position-relative d-flex align-items-center justify-content-center">
+  <div class="banner-overlay"></div>
+  
+  <div class="container text-center position-relative z-2">
+    <h1 class="banner-title fw-bold mb-2">Contacto</h1>
+    <p class="banner-subtitle fs-5 mb-0 opacity-75">Estamos aquí para ayudarte</p>
+  </div>
+</section>
+
+<!-- Contact Methods -->
+<section class="section-default py-5">
+  <div class="container">
+    
+    <!-- Intro Text -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">¿Cómo puedes comunicarte con nosotros?</h2>
+      <p class="content-text intro-text mx-auto fs-5">
+        Si tienes dudas, sugerencias o necesitas soporte, estos son nuestros canales de comunicación oficiales.
+      </p>
+    </div>
+
+    <!-- Grid de Contacto -->
+    <!-- g-4 añade espacio consistente entre columnas y filas -->
+    <div class="row g-4 justify-content-center">
+
+      <!-- Correo -->
+      <div class="col-md-6 col-lg-3">
+        <div class="custom-card h-100 text-center p-4 d-flex flex-column align-items-center justify-content-center">
+          <i class="bi bi-envelope-fill contact-icon mb-3"></i>
+          <h3 class="h5 fw-bold mb-2">Correo electrónico</h3>
+          <p class="content-text mb-0 text-break">soporte@braindemy.com</p>
+        </div>
+      </div>
+
+      <!-- WhatsApp -->
+      <div class="col-md-6 col-lg-3">
+        <div class="custom-card h-100 text-center p-4 d-flex flex-column align-items-center justify-content-center">
+          <i class="bi bi-whatsapp contact-icon mb-3"></i>
+          <h3 class="h5 fw-bold mb-2">WhatsApp Business</h3>
+          <p class="content-text mb-0">+503 0000-0000</p>
+        </div>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="col-md-6 col-lg-3">
+        <div class="custom-card h-100 text-center p-4 d-flex flex-column align-items-center justify-content-center">
+          <i class="bi bi-share-fill contact-icon mb-3"></i>
+          <h3 class="h5 fw-bold mb-2">Redes sociales</h3>
+          <p class="content-text mb-0">@braindemy_oficial</p>
+        </div>
+      </div>
+
+      <!-- Horario -->
+      <div class="col-md-6 col-lg-3">
+        <div class="custom-card h-100 text-center p-4 d-flex flex-column align-items-center justify-content-center">
+          <i class="bi bi-clock-fill contact-icon mb-3"></i>
+          <h3 class="h5 fw-bold mb-2">Horario de atención</h3>
+          <p class="content-text mb-0">
+            Lunes a Viernes<br>
+            <span class="small opacity-75">8:00 AM a 5:00 PM</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

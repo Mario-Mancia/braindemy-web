@@ -1,34 +1,45 @@
-<nav class="navbar navbar-expand-lg custom-navbar">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+  <div class="container-fluid container-xl"> <!-- Contenedor ampliado para mejor espaciado -->
 
-    <a class="navbar-brand fw-bold" routerLink="">Braindemy</a>
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="">
+      <img src="BraindemyLogoBL.png"
+           alt="Logo Braindemy"
+           width="40"
+           height="40"
+           class="logo">
+      <span class="fw-bold brand-text">Braindemy</span>
+    </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
 
-      <!-- Items alineados a la izquierda -->
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"> <!-- Añadido margen izquierdo en desktop -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+          <a class="nav-link" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            Inicio
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="about" routerLinkActive="active">Acerca de nosotros</a>
+          <a class="nav-link" routerLink="about" routerLinkActive="active">
+            Acerca de nosotros
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="contact" routerLinkActive="active">Contactos</a>
+          <a class="nav-link" routerLink="contact" routerLinkActive="active">
+            Contactos
+          </a>
         </li>
       </ul>
 
-      <!-- Botón alineado a la derecha -->
       <div class="d-flex">
-        <a routerLink="/auth/login" class="btn btn-light fw-semibold">
+        <!-- Clase btn-primary-style para aplicar el diseño fuerte con la clase btn-light -->
+        <a routerLink="/auth/login" class="btn btn-primary-style fw-semibold rounded-pill px-4 py-2 shadow-sm">
           Iniciar sesión
         </a>
       </div>
-
     </div>
   </div>
 </nav>

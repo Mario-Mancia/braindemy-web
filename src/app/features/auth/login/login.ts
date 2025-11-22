@@ -1,36 +1,48 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthRoutingModule } from '../auth-routing-module';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
-
+  
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
   loading = false;
+  loginError: string | null = null;
+  showPassword = false;
+
+  get isDarkMode() {
+    return document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  }
 
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  // Helper para mostrar error solo cuando el campo está tocado
-  showError(controlName: string) {
-    const control = this.form.get(controlName);
+  showError(c: string) {
+    const control = this.form.get(c);
     return control && control.invalid && (control.dirty || control.touched);
   }
 
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
   submit() {
+    this.loginError = null;
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -44,13 +56,31 @@ export class Login {
       .subscribe({
         next: () => {
           this.loading = false;
-          console.log('Login correcto');
-          this.router.navigate(['/teacher']);
+
+          const user = this.authService.user;
+
+          if (!user) {
+            this.loginError = 'Error inesperado. Intenta de nuevo.';
+            return;
+          }
+
+          if (user.role === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (user.role === 'teacher') {
+            this.router.navigate(['/teacher']);
+          } else {
+            this.router.navigate(['/']);
+          }
         },
-        error: (err) => {
+        error: () => {
           this.loading = false;
-          console.error('Error en login', err);
+          this.loginError = 'Correo o contraseña incorrectos.';
+          this.form.markAsUntouched();
         }
       });
   }
+
+  onDbg(e: Event) {
+  console.log('click detectado', e.target);
+}
 }

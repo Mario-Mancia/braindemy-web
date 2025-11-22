@@ -1,34 +1,188 @@
-.row {
-  min-height: 100vh;
+/* ============================================ */
+/* 1. VARIABLES LOCALES                         */
+/* ============================================ */
+:host {
+  /* Fondo de la página: Coincide con 'section-alternate' de Landing (#f8f9fa) */
+  --bg-page: #f8f9fa; 
+  
+  /* Tarjeta */
+  --bg-card: #ffffff;
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  /* Inputs */
+  --input-bg: #ffffff; /* Input blanco para contraste con el fondo gris suave interno */
+  --input-border: #dee2e6;
+  --input-focus-border: var(--brand-green);
+  --input-icon-color: #adb5bd;
+  --separator-color: #e9ecef; /* Nuevo: Color de la línea separadora */
+  
+  /* Brand */
+  --brand-color: var(--brand-green);
+  --brand-hover: #16a085;
+
+  display: block;
 }
 
+/* DARK MODE OVERRIDES */
+:host-context([data-bs-theme="dark"]) {
+  --bg-page: #121212; /* Coincide con dark mode de Landing */
+  
+  --bg-card: #1e1e1e;
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  --input-bg: #2b2b2b;
+  --input-border: #444;
+  --input-icon-color: #888;
+  --separator-color: #444; /* Separador oscuro */
+  
+  --brand-color: #2ecc71; 
+  --brand-hover: #27ae60;
+}
+
+/* ============================================ */
+/* 2. LAYOUT & PAGE BACKGROUND                  */
+/* ============================================ */
+.login-page {
+  background-color: var(--bg-page);
+  transition: background-color 0.3s ease;
+}
+
+.text-main { color: var(--text-main); }
+.text-muted-local { color: var(--text-muted-local); }
+.text-brand { color: var(--brand-color); }
+
+/* ============================================ */
+/* 3. LEFT PANEL (BRANDING)                     */
+/* ============================================ */
 .left-panel {
-  background-color: #1ABC9C;
-  /* Un patrón sutil o degradado ayuda visualmente */
-  background: linear-gradient(135deg, #1ABC9C 0%, #16a085 100%);
+  background: var(--brand-green);
+  background: linear-gradient(135deg, var(--brand-green-dark) 0%, var(--brand-green) 100%);
+  min-height: 500px;
+  overflow: hidden;
 }
 
-.form-control:focus {
-  border-color: #1ABC9C;
-  box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
+.panel-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.3;
 }
 
-.login-btn {
-  background-color: #1ABC9C;
+/* ============================================ */
+/* 4. RIGHT PANEL (FORM)                        */
+/* ============================================ */
+.right-panel {
+  background-color: var(--bg-card);
+  transition: background-color 0.3s ease;
+}
+
+/* ============================================ */
+/* 5. INPUTS CON SEPARADOR (Imagen | Input)     */
+/* ============================================ */
+.custom-input-group {
+  display: flex;
+  align-items: center;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 8px; /* Un poco menos redondeado para el estilo clásico */
+  padding: 0; /* Quitamos padding contenedor para manejarlo en los hijos */
+  transition: all 0.2s ease;
+  overflow: hidden; /* Asegura que los hijos respeten el borde redondeado */
+}
+
+.custom-input-group:focus-within {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
+}
+
+.custom-input-group.is-invalid-group {
+  border-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.02);
+}
+
+/* ESTILO DEL ICONO (Lado Izquierdo) */
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; /* Ancho fijo para alineación perfecta */
+  height: 48px; /* Altura para centrado vertical */
+  background-color: rgba(0,0,0,0.02); /* Fondo muy sutil para diferenciar área */
+  color: var(--input-icon-color);
+  font-size: 1.2rem;
+  border-right: 1px solid var(--separator-color); /* LA LÍNEA SEPARADORA */
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+:host-context([data-bs-theme="dark"]) .input-icon {
+  background-color: rgba(255,255,255,0.02);
+}
+
+.custom-input-group:focus-within .input-icon {
+  color: var(--brand-color);
+  background-color: rgba(26, 188, 156, 0.08); /* Fondo verde muy suave al enfocar */
+}
+
+/* INPUT TEXT (Lado Derecho) */
+.custom-control {
+  flex: 1; /* Ocupa el resto del espacio */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.6rem 1rem; /* Padding interno del texto */
+  color: var(--text-main);
+  font-weight: 500;
+  height: 100%;
+}
+
+.custom-control::placeholder {
+  color: var(--text-muted-local);
+  opacity: 0.6;
+}
+
+/* Toggle Password Eye */
+.password-toggle {
+  cursor: pointer;
+  color: var(--input-icon-color);
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: color 0.2s;
+  border-left: 1px solid transparent; /* Espacio reservado */
+}
+
+.password-toggle:hover {
+  color: var(--text-main);
+}
+
+/* ============================================ */
+/* 6. BOTONES & ELEMENTOS UI                    */
+/* ============================================ */
+.btn-brand {
+  background-color: var(--brand-color);
   border: none;
+  color: white;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
 }
 
-.login-btn:hover {
-  background-color: #17a488;
-  transform: translateY(-1px);
+.btn-brand:hover {
+  background-color: var(--brand-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(26, 188, 156, 0.3);
 }
 
-.invalid-feedback {
-  font-size: 0.875em;
+.btn-brand:disabled {
+  background-color: var(--input-icon-color);
+  transform: none;
+  box-shadow: none;
 }
 
-.is-invalid {
-  border-color: #dc3545 !important;
-  box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.2) !important;
+.form-check-input:checked {
+  background-color: var(--brand-color);
+  border-color: var(--brand-color);
 }

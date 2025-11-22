@@ -1,1 +1,113 @@
-<p>teacher-navbar works!</p>
+<nav class="navbar navbar-expand-lg custom-navbar custom-navbar-teacher sticky-top">
+  <div class="container-fluid container-xl"> <!-- Aplicando contenedor amplio consistente -->
+
+    <!-- BRAND -->
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/teacher">
+      <img src="BraindemyLogoBL.png" alt="Logo" width="40" height="40" class="logo">
+      <span class="fw-bold brand-text">Braindemy Docente</span> <!-- Clase brand-text para consistencia -->
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#teacherNavbar" aria-controls="teacherNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="teacherNavbar">
+
+      <!-- LEFT MENU -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"> <!-- Margen izquierdo en desktop -->
+
+        <li class="nav-item">
+          <a routerLink="/teacher" routerLinkActive="active" class="nav-link" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/teacher/courses" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-journal-text me-2"></i> Mis Cursos
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/teacher/schedule" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-calendar-event me-2"></i> Agenda
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/teacher/plans" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-list-check me-2"></i> Planes
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/teacher/finances" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-wallet2 me-2"></i> Finanzas
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a routerLink="/teacher/support" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-life-preserver me-2"></i> Soporte
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- RIGHT MENU -->
+      <div class="d-flex align-items-center gap-3">
+
+        <!-- Notifications -->
+        <button class="btn btn-icon btn-admin-action position-relative"> <!-- Aplicando estilo de acción -->
+          <i class="bi bi-bell-fill fs-5"></i>
+        </button>
+
+        <!-- User dropdown -->
+        <div class="dropdown">
+          <button class="btn btn-admin-action dropdown-toggle d-flex align-items-center gap-2 rounded-pill pe-3" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://ui-avatars.com/api/?name=Teacher" class="avatar">
+            <span class="d-none d-md-inline">Docente</span> <!-- Ocultar texto en pantallas muy pequeñas -->
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3">
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/teacher/profile">
+                <i class="bi bi-person-circle"></i> Perfil
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/teacher/settings">
+                <i class="bi bi-sliders"></i> Configuración
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <!-- THEME -->
+            <li>
+              <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme()">
+                <i class="bi"
+                  [ngClass]="currentTheme === 'light' ? 'bi-moon-fill' : 'bi-sun-fill'"></i>
+                {{ currentTheme === 'light' ? 'Modo oscuro' : 'Modo claro' }}
+              </button>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+              <a class="dropdown-item text-danger d-flex align-items-center gap-2" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</nav>
