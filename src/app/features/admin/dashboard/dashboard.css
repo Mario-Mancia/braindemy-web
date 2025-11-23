@@ -1,0 +1,287 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES & DEFAULTS (LIGHT)      */
+/* ============================================ */
+:host {
+  --bg-dashboard: var(--surface-light);
+  --bg-panel: #ffffff;
+  --border-panel: rgba(0,0,0,0.08);
+  
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  --text-inverse: #ffffff;
+  
+  /* Configuración de Espaciado */
+  --grid-gap: 2.5rem; 
+  --card-radius: 16px;
+
+  /* Colores Base de Stat Cards (Light) */
+  --stat-blue: #3a7afe;
+  --stat-green: var(--brand-green);
+  --stat-orange: #ff9f43;
+  --stat-red: #ff5757;
+  --stat-purple: #9b59b6;
+  --stat-cyan: #00bcd4;
+  --stat-yellow: #f1c40f;
+  --stat-yellow-text: #222;
+  --stat-dark: #2f3542;
+
+  display: block;
+}
+
+/* ============================================ */
+/* 2. COMPORTAMIENTO DARK MODE                  */
+/* ============================================ */
+:host-context([data-bs-theme="dark"]) {
+  --bg-dashboard: var(--surface-dark);
+  --bg-panel: #252525; 
+  --border-panel: rgba(255,255,255,0.08);
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  /* Colores Stat Cards (Dark Mode) */
+  --stat-blue: #1e4b9e;
+  --stat-green: #0f5f4e;
+  --stat-orange: #b36b25;
+  --stat-red: #a33232;
+  --stat-purple: #673a7a;
+  --stat-cyan: #007a8a;
+  --stat-yellow: #b39209;
+  --stat-yellow-text: #fff;
+  --stat-dark: #15181f;
+}
+
+/* ============================================ */
+/* 3. ESTILOS GENERALES                         */
+/* ============================================ */
+h1, h2, h3, h4, h5, h6, 
+.welcome-title {
+  color: var(--text-main);
+  transition: color 0.3s ease;
+}
+
+.welcome-text,
+.notification-date,
+.hero-subtitle {
+  color: var(--text-muted-local);
+  transition: color 0.3s ease;
+}
+
+/* ============================================ */
+/* 3.5 BOTÓN DE ACCIÓN (NUEVO)                  */
+/* ============================================ */
+.refresh-btn {
+  background-color: var(--brand-green);
+  color: #ffffff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 50px; /* Forma de píldora */
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  /* Ubicación: Separación de las tarjetas inferiores */
+  margin-bottom: 2rem;
+  
+  /* Sombra suave verde */
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(26, 188, 156, 0.45);
+  filter: brightness(1.05);
+}
+
+.refresh-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Ajuste de sombra en Dark Mode para que no brille raro */
+:host-context([data-bs-theme="dark"]) .refresh-btn {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================ */
+/* 4. HERO HEADER                               */
+/* ============================================ */
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--brand-green) 0%, #146c38 100%);
+  min-height: 160px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 3rem;
+}
+
+.dashboard-hero h1,
+.dashboard-hero .hero-subtitle {
+  color: #ffffff !important;
+  opacity: 0.95;
+}
+
+/* ============================================ */
+/* 5. STAT CARDS                                */
+/* ============================================ */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--grid-gap);
+  margin-bottom: var(--grid-gap);
+}
+
+.stat-card {
+  padding: 24px;
+  border-radius: var(--card-radius);
+  color: var(--text-inverse);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 190px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  border: none;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  opacity: 0.95;
+  color: var(--text-inverse);
+}
+
+.stat-value {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-top: auto;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.stat-icon {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  font-size: 5rem;
+  opacity: 0.12;
+  transform: rotate(-10deg);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+  transform: rotate(0deg) scale(1.1);
+  opacity: 0.2;
+}
+
+/* Variantes de Color */
+.stat-card.blue   { background-color: var(--stat-blue); }
+.stat-card.green  { background-color: var(--stat-green); }
+.stat-card.orange { background-color: var(--stat-orange); }
+.stat-card.red    { background-color: var(--stat-red); }
+.stat-card.purple { background-color: var(--stat-purple); }
+.stat-card.cyan   { background-color: var(--stat-cyan); }
+.stat-card.dark   { background-color: var(--stat-dark); }
+
+.stat-card.yellow { 
+  background-color: var(--stat-yellow); 
+  color: var(--stat-yellow-text); 
+}
+.stat-card.yellow h3 { color: var(--stat-yellow-text); }
+
+
+/* ============================================ */
+/* 6. PANELES (Notifications & Activity)        */
+/* ============================================ */
+.lower-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--grid-gap);
+  margin-top: 1rem;
+}
+
+.panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  padding: 2rem;
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.panel h4 {
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-panel);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* ============================================ */
+/* 7. NOTIFICATIONS LIST                        */
+/* ============================================ */
+.notifications {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notifications li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--border-panel);
+  color: var(--text-muted-local);
+  transition: background-color 0.2s ease;
+}
+
+.notifications li:hover {
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: rgba(128, 128, 128, 0.03); 
+  border-radius: 6px;
+}
+
+.notifications li:last-child {
+  border-bottom: none;
+}
+
+.notification-item i {
+  color: var(--brand-green);
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+/* ============================================ */
+/* 8. RESPONSIVE                                */
+/* ============================================ */
+@media (max-width: 991px) {
+  .lower-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-hero {
+    text-align: center;
+  }
+  
+  .hero-subtitle {
+    justify-content: center;
+  }
+  
+  /* Opcional: Centrar el botón en móvil */
+  .refresh-btn {
+    display: table; 
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

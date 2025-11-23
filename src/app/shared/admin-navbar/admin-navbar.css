@@ -1,5 +1,5 @@
 /* ============================================ */
-/* 1. VARIABLES LOCALES (Consistencia con tema) */
+/* 1. VARIABLES LOCALES */
 /* ============================================ */
 :host {
   /* LIGHT MODE: Fondo con un toque de verde corporativo claro */
@@ -27,7 +27,7 @@
 }
 
 /* ============================================ */
-/* 2. ESTRUCTURA BASE (Heredada del Navbar Público) */
+/* 2. ESTRUCTURA BASE  */
 /* ============================================ */
 .custom-navbar {
   background-color: var(--navbar-bg-color) !important;
@@ -72,7 +72,7 @@
 }
 
 /* ============================================ */
-/* 3. ENLACES Y ESTADO ACTIVO (Consistente)     */
+/* 3. ENLACES Y ESTADO ACTIVO                   */
 /* ============================================ */
 .custom-navbar-admin .nav-link {
   color: var(--navbar-text-color) !important;
@@ -177,7 +177,6 @@
     padding-left: 0.5rem !important;
   }
   .custom-navbar-admin .nav-link::after {
-      /* Ocultar la barra en mobile para el menú expandido */
       display: none;
   }
 }

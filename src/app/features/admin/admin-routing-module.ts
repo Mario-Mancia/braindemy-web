@@ -7,6 +7,8 @@ import { Courses } from './courses/courses';
 import { Payments } from './payments/payments';
 import { Profile } from './profile/profile';
 import { Users } from './users/users';
+import { UserEdit } from './user-edit/user-edit';
+import { UserDetail } from './user-detail/user-detail';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: 'notifications', component: Notification, canActivate: [authGuard] },
   { path: 'payments', component: Payments, canActivate: [authGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
-  { path: 'users', component: Users, canActivate: [authGuard] }
+  { path: 'users', component: Users, canActivate: [authGuard] },
+  { path: 'user-edit/:id', component: UserEdit, canActivate: [authGuard]},
+  { path: 'user-detail/:id', component: UserDetail, canActivate: [authGuard]}
 ];
 
 @NgModule({

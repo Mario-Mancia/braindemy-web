@@ -9,7 +9,10 @@ import { Courses } from './courses/courses';
 import { Payments } from './payments/payments';
 import { Notifications } from './notifications/notifications';
 import { Profile } from './profile/profile';
-
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UserDetail } from './user-detail/user-detail';
+import { UserEdit } from './user-edit/user-edit';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,11 +22,15 @@ import { Profile } from './profile/profile';
     Courses,
     Payments,
     Notifications,
-    Profile
+    Profile,
+    UserDetail,
+    UserEdit
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }

@@ -1,1 +1,177 @@
-<p>users works!</p>
+<div class="users-container">
+
+    <div class="users-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Gestión de Usuarios</h1>
+            <p class="hero-subtitle text-white-50">Consulta, filtra y administra todos los usuarios del sistema</p>
+        </div>
+    </div>
+
+    <div class="container container-xl content-padding">
+
+        <div class="mb-4 mt-3 d-flex align-items-center justify-content-between">
+            <div>
+                <h2 class="fw-bold section-title mb-1">Listado General</h2>
+                <p class="section-desc mb-0">
+                    Base de datos completa de usuarios registrados
+                </p>
+            </div>
+            <div class="d-none d-md-block">
+                <span class="badge bg-light text-dark border shadow-sm px-3 py-2 rounded-pill">
+                    Total: {{ users.length }}
+                </span>
+            </div>
+        </div>
+
+        <div class="filters-panel mb-4">
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <label class="form-label">Rol</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <select class="form-select custom-control" [(ngModel)]="filters.role" (change)="loadUsers()">
+                            <option value="">Todos</option>
+                            <option value="student">Estudiante</option>
+                            <option value="teacher">Profesor</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Estado</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-toggle-on"></i>
+                        </div>
+                        <select class="form-select custom-control" [(ngModel)]="filters.status" (change)="loadUsers()">
+                            <option value="">Todos</option>
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                            <option value="banned">Baneado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Buscar usuario</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <input type="text" class="form-control custom-control" 
+                               placeholder="Nombre, email..." 
+                               [(ngModel)]="filters.search"
+                               (keyup)="debouncedLoad()" />
+                    </div>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-outline-secondary w-100 rounded-pill py-2 fw-bold" (click)="resetFilters()">
+                        <i class="bi bi-x-circle me-1"></i> Limpiar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="table-panel">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="ps-4">#</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Registro</th>
+                            <th scope="col" class="text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let u of users; let i = index">
+                            <td class="ps-4 text-muted fw-bold">{{ (page - 1) * limit + (i + 1) }}</td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-avatar-small me-3">
+                                        {{ u.first_name.charAt(0) }}
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold text-main">{{ u.first_name }} {{ u.last_name }}</span>
+                                        <span class="small text-muted-local">{{ u.email }}</span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="text-capitalize">
+                                <span class="d-inline-flex align-items-center gap-1">
+                                    <i class="bi bi-person-badge text-muted small"></i> {{ u.role }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge" [ngClass]="getStatusClass(u.status)">
+                                    {{ u.status }}
+                                </span>
+                            </td>
+
+                            <td class="text-muted small">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                {{ u.created_at | date: 'mediumDate' }}
+                            </td>
+
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn btn-sm btn-icon-only btn-outline-primary" 
+                                            title="Ver detalles" 
+                                            (click)="goToDetail(u.id)">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-icon-only btn-outline-warning" 
+                                            title="Editar usuario" 
+                                            (click)="goToEdit(u.id)">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr *ngIf="users.length === 0">
+                            <td colspan="6" class="text-center py-5">
+                                <div class="d-flex flex-column align-items-center opacity-50">
+                                    <i class="bi bi-inbox display-4 mb-3"></i>
+                                    <h5>No se encontraron resultados</h5>
+                                    <p class="small">Intenta cambiar los filtros de búsqueda</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="pagination-wrapper mt-4">
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3" 
+                    [disabled]="page === 1" 
+                    (click)="changePage(page - 1)">
+                <i class="bi bi-chevron-left me-1"></i> Anterior
+            </button>
+
+            <span class="mx-3 text-muted small fw-bold">Página {{ page }}</span>
+
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3" 
+                    [disabled]="!hasMore" 
+                    (click)="changePage(page + 1)">
+                Siguiente <i class="bi bi-chevron-right ms-1"></i>
+            </button>
+        </div>
+
+    </div>
+
+</div>

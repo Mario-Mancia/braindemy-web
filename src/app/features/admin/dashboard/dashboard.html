@@ -1,1 +1,110 @@
-<p>dashboard works!</p>
+<div class="main-dashboard-content">
+
+    <!-- HERO HEADER -->
+    <div class="dashboard-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Panel de Administración</h1>
+            <p class="hero-subtitle">Control general y vista rápida del estado del sistema</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="container container-xl content-padding">
+
+        <!-- WELCOME SECTION -->
+        <div class="mb-5 mt-4 text-center text-md-start">
+            <h2 class="fw-bold welcome-title">Bienvenido, Administrador</h2>
+            <p class="welcome-text">
+                Aquí puedes monitorear la actividad global de la plataforma y acceder a las áreas de gestión más
+                importantes.
+            </p>
+        </div>
+
+        <!--<button (click)="refresh()" class="refresh-btn">Actualizar</button>-->
+        <!-- ROW 1 — Primary Stats -->
+        <div class="stats-row">
+
+            <div class="stat-card blue">
+                <h3>Usuarios totales</h3>
+                <p class="stat-value">{{ usersCount }}</p>
+                <span class="stat-icon"><i class="bi bi-people"></i></span>
+            </div>
+
+            <div class="stat-card green">
+                <h3>Cursos activos</h3>
+                <p class="stat-value">{{ activeCourses }}</p>
+                <span class="stat-icon"><i class="bi bi-journal-code"></i></span>
+            </div>
+
+            <div class="stat-card orange">
+                <h3>Ingresos (Mensual)</h3>
+                <p class="stat-value">${{ revenue }}</p>
+                <span class="stat-icon"><i class="bi bi-cash-stack"></i></span>
+            </div>
+
+            <div class="stat-card red">
+                <h3>Reportes Abiertos</h3>
+                <p class="stat-value">{{ reports }}</p>
+                <span class="stat-icon"><i class="bi bi-flag"></i></span>
+            </div>
+
+        </div>
+
+        <!-- ROW 2 — Additional Stats -->
+        <div class="stats-row">
+
+            <div class="stat-card purple">
+                <h3>Profesores activos</h3>
+                <p class="stat-value">{{ activeTeachers }}</p>
+                <span class="stat-icon"><i class="bi bi-mortarboard"></i></span>
+            </div>
+
+            <div class="stat-card cyan">
+                <h3>Cursos pendientes</h3>
+                <p class="stat-value">{{ pendingCourses }}</p>
+                <span class="stat-icon"><i class="bi bi-hourglass-split"></i></span>
+            </div>
+
+            <div class="stat-card yellow">
+                <h3>Tickets abiertos</h3>
+                <p class="stat-value">{{ openTickets }}</p>
+                <span class="stat-icon"><i class="bi bi-life-preserver"></i></span>
+            </div>
+
+            <div class="stat-card dark">
+                <h3>Evaluaciones Pendientes</h3>
+                <p class="stat-value">{{ evaluations }}</p>
+                <span class="stat-icon"><i class="bi bi-clipboard-check"></i></span>
+            </div>
+
+        </div>
+
+        <!-- ROW 3 — Notifications + Activity -->
+        <div class="lower-section">
+
+            <div class="panel notifications-panel">
+                <h4><i class="bi bi-bell-fill me-2"></i> Notificaciones recientes</h4>
+                <ul class="notifications">
+                    <li *ngFor="let n of notifications">
+                        <div class="notification-item">
+                            <i class="bi bi-dot me-1"></i>
+                            <span class="text-truncate">{{ n.text }}</span>
+                        </div>
+                        <span class="notification-date text-muted">{{ n.date }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel activity-panel">
+                <h4><i class="bi bi-graph-up me-2"></i> Actividad general</h4>
+                <p class="text-muted">Próximamente aquí podrás integrar gráficas de rendimiento o KPIs avanzados en
+                    tiempo real.</p>
+                <div class="d-flex justify-content-center align-items-center h-50 pt-4">
+                    <i class="bi bi-bar-chart-line display-4 text-secondary opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

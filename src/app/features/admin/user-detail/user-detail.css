@@ -1,0 +1,189 @@
+/* ============================================ */
+/* 1. VARIABLES & THEME                         */
+/* ============================================ */
+:host {
+  --bg-page: var(--surface-light);
+  --bg-panel: #ffffff;
+  --border-panel: rgba(0,0,0,0.08);
+  
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  /* Iconos y Decoración (Light) */
+  --icon-bg: rgba(26, 188, 156, 0.1); 
+  --icon-color: var(--brand-green);
+  --card-hover-bg: #f8f9fa;
+  
+  /* Avatar */
+  --avatar-bg: var(--brand-green);
+  --avatar-text: #ffffff;
+  
+  /* HERO BG (Color Sólido Light) */
+  --hero-bg: var(--brand-green);
+
+  display: block;
+}
+
+:host-context([data-bs-theme="dark"]) {
+  --bg-page: var(--surface-dark);
+  --bg-panel: #252525;
+  --border-panel: rgba(255,255,255,0.08);
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  /* Iconos y Decoración (Dark) */
+  --icon-bg: rgba(255, 255, 255, 0.05);
+  --icon-color: #58d68d; 
+  --card-hover-bg: rgba(255,255,255,0.03);
+  
+  --avatar-bg: #145a42;
+  --avatar-text: #e5e5e5;
+  
+  /* HERO BG (Color Sólido Dark - Verde elegante) */
+  --hero-bg: #114e3e; 
+}
+
+/* ============================================ */
+/* 2. LAYOUT PRINCIPAL                          */
+/* ============================================ */
+.detail-hero {
+  /* CAMBIO APLICADO: Usamos la variable sólida en lugar del linear-gradient */
+  background-color: var(--hero-bg); 
+  
+  min-height: 160px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.detail-panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  padding: 2.5rem;
+  border-radius: 20px; 
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.divider {
+  border-color: var(--border-panel);
+  opacity: 0.5;
+}
+
+.section-label {
+  color: var(--text-muted-local);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--brand-green);
+}
+
+/* ============================================ */
+/* 3. PROFILE HEADER (Avatar)                   */
+/* ============================================ */
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--avatar-bg);
+  color: var(--avatar-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.profile-header h2 {
+  color: var(--text-main);
+}
+
+/* ============================================ */
+/* 4. DETAIL CARDS (Diseño Pro)                 */
+/* ============================================ */
+.detail-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  border: 1px solid transparent; 
+}
+
+.detail-card:hover {
+  background-color: var(--card-hover-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  background-color: var(--icon-bg);
+  color: var(--icon-color);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; 
+}
+
+.detail-content .label {
+  font-size: 0.8rem;
+  color: var(--text-muted-local);
+  margin-bottom: 2px;
+}
+
+.detail-content .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* ============================================ */
+/* 5. ELEMENTOS UI (Badges y Botones)           */
+/* ============================================ */
+.badge {
+  text-transform: capitalize;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  vertical-align: middle;
+}
+
+.badge.active { background-color: rgba(40, 167, 69, 0.15); color: #28a745; }
+.badge.inactive { background-color: rgba(108, 117, 125, 0.15); color: #6c757d; }
+.badge.banned { background-color: rgba(220, 53, 69, 0.15); color: #dc3545; }
+
+/* Dark mode overrides for badges */
+:host-context([data-bs-theme="dark"]) .badge.active { color: #4cd16e; }
+:host-context([data-bs-theme="dark"]) .badge.inactive { color: #aab0b6; }
+:host-context([data-bs-theme="dark"]) .badge.banned { color: #ff6b6b; }
+
+.btn-edit {
+  background-color: transparent;
+  border: 2px solid var(--border-panel);
+  color: var(--text-main);
+  border-radius: 50px;
+  padding: 8px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: var(--brand-green);
+  border-color: var(--brand-green);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}

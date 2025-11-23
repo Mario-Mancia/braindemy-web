@@ -1,0 +1,150 @@
+<div class="detail-container">
+
+    <div class="detail-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Perfil de Usuario</h1>
+            <p class="hero-subtitle text-white-50">Vista completa de la información y metadatos del usuario</p>
+        </div>
+    </div>
+
+    <div class="container container-xl content-padding">
+
+        <button class="btn btn-link text-decoration-none text-muted mb-4 ps-0" (click)="goBack()">
+            <i class="bi bi-arrow-left me-2"></i> Volver al listado
+        </button>
+
+        <div *ngIf="loading" class="text-center py-5 my-5">
+            <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+            <p class="mt-3 text-muted">Cargando perfil...</p>
+        </div>
+
+        <div *ngIf="error && !loading" class="alert alert-danger text-center shadow-sm border-0">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+        </div>
+
+        <div *ngIf="!loading && user" class="detail-panel">
+
+            <div class="profile-header d-flex flex-column flex-md-row align-items-center align-items-md-start gap-4">
+                
+                <div class="profile-avatar">
+                    <span class="initials">
+                        {{ user.first_name.charAt(0) }}{{ user.last_name.charAt(0) }}
+                    </span>
+                </div>
+
+                <div class="flex-grow-1 text-center text-md-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-3 mb-1">
+                        <h2 class="fw-bold mb-0">{{ user.first_name }} {{ user.last_name }}</h2>
+                        <span class="badge" [ngClass]="user.status">
+                            {{ user.status }}
+                        </span>
+                    </div>
+                    <p class="text-muted mb-0">{{ user.email }}</p>
+                    <p class="text-muted small opacity-75">ID: {{ userId }}</p>
+                </div>
+
+                <div class="d-none d-md-block">
+                    <button class="btn btn-edit" (click)="goToEdit()">
+                        <i class="bi bi-pencil-fill me-2"></i> Editar
+                    </button>
+                </div>
+            </div>
+
+            <hr class="divider my-4">
+
+            <h5 class="section-label mb-4">Información Personal</h5>
+            
+            <div class="row g-4">
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="detail-card">
+                        <div class="icon-box">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Nombre Completo</span>
+                            <span class="value">{{ user.first_name }} {{ user.last_name }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="detail-card">
+                        <div class="icon-box">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Correo Electrónico</span>
+                            <span class="value text-truncate" title="{{ user.email }}">{{ user.email }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4" *ngIf="user.birthdate">
+                    <div class="detail-card">
+                        <div class="icon-box">
+                            <i class="bi bi-cake2"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Fecha de Nacimiento</span>
+                            <span class="value">{{ user.birthdate | date:'longDate' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h5 class="section-label mt-5 mb-4">Configuración del Sistema</h5>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="detail-card">
+                        <div class="icon-box role-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Rol Asignado</span>
+                            <span class="value text-capitalize">{{ user.role }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="detail-card">
+                        <div class="icon-box">
+                            <i class="bi bi-globe-americas"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Zona Horaria</span>
+                            <span class="value">{{ user.timezone || 'No configurada' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="detail-card">
+                        <div class="icon-box">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="detail-content">
+                            <span class="label">Miembro Desde</span>
+                            <span class="value">{{ user.created_at | date:'mediumDate' }}</span>
+                            <small class="text-muted d-block" style="font-size: 0.75rem;">
+                                {{ user.created_at | date:'shortTime' }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="d-md-none mt-5">
+                <button class="btn btn-edit w-100" (click)="goToEdit()">
+                    <i class="bi bi-pencil-fill me-2"></i> Editar Información
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
