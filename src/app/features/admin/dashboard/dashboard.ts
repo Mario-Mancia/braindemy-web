@@ -10,12 +10,14 @@ import { environment } from '../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class Dashboard implements OnInit{
-
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
     console.log("DASHBOARD INICIALIZADO");
   }
 
   apiUrl = environment.apiUrl;
+
+  // Variable para el nombre del usuario activo
+  adminName: string = "Mario"; 
 
   // Inicializamos en 0
   usersCount = 0;
@@ -38,6 +40,9 @@ export class Dashboard implements OnInit{
     console.log("ngOnInit() ejecutado");
     this.loadUsersCount();
     this.loadActiveTeachers();
+    
+    // Aquí podrías llamar a un servicio para obtener el nombre real
+    // Ejemplo: this.adminName = this.authService.currentUser.name;
   }
 
   refresh() {
@@ -50,6 +55,7 @@ export class Dashboard implements OnInit{
     this.http.get<any>(`${this.apiUrl}/users/stats/global`).subscribe({
       next: res => {
         this.usersCount = res.totalUsers; 
+        // Forzamos detección para asegurar actualización inmediata
         this.cdr.detectChanges();
         console.log(`Users recuperados: ${this.usersCount}`)
       },

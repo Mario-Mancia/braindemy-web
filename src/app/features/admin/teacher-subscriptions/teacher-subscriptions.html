@@ -1,0 +1,234 @@
+<div class="users-container">
+
+  <!-- HERO -->
+  <div class="users-hero d-flex align-items-center">
+    <div class="container container-xl py-5">
+      <h1 class="fw-bold mb-2 text-white">Suscripciones de Profesores</h1>
+      <p class="hero-subtitle text-white-50">
+        Consulta y administra todas las suscripciones activas y pasadas
+      </p>
+    </div>
+  </div>
+
+  <div class="container container-xl content-padding">
+
+    <!-- ENCABEZADO -->
+    <div class="mb-4 mt-3 d-flex align-items-center justify-content-between">
+      <div>
+        <h2 class="fw-bold section-title mb-1">Listado General</h2>
+        <p class="section-desc mb-0">Registro completo de suscripciones de profesores</p>
+      </div>
+
+      <div class="d-none d-md-block">
+        <span class="badge bg-light text-dark border shadow-sm px-3 py-2 rounded-pill">
+          Total: {{ subscriptions.length }}
+        </span>
+      </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filters-panel mb-4">
+      <div class="row g-3">
+
+        <!-- Buscar -->
+        <div class="col-md-3">
+          <label class="form-label">Buscar</label>
+          <div class="custom-input-group">
+            <div class="input-icon">
+              <i class="bi bi-search"></i>
+            </div>
+            <input
+              type="text"
+              class="form-control custom-control"
+              placeholder="Profesor, suscripción..."
+              [(ngModel)]="filters.search"
+              (keyup)="debouncedLoad()"
+            />
+          </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="col-md-3">
+          <label class="form-label">Estado</label>
+          <div class="custom-input-group">
+            <div class="input-icon">
+              <i class="bi bi-flag"></i>
+            </div>
+            <select
+              class="form-select custom-control"
+              [(ngModel)]="filters.status"
+              (change)="loadSubscriptions()"
+            >
+              <option value="">Todos</option>
+              <option value="active">Activa</option>
+              <option value="expired">Expirada</option>
+              <option value="cancelled">Cancelada</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ID Profesor -->
+        <div class="col-md-3">
+          <label class="form-label">ID del Profesor</label>
+          <div class="custom-input-group">
+            <div class="input-icon">
+              <i class="bi bi-person-badge"></i>
+            </div>
+            <input
+              type="text"
+              class="form-control custom-control"
+              placeholder="teacher_id"
+              [(ngModel)]="filters.teacher_id"
+              (keyup)="debouncedLoad()"
+            />
+          </div>
+        </div>
+
+        <!-- ID Suscripción -->
+        <div class="col-md-3">
+          <label class="form-label">ID de Suscripción</label>
+          <div class="custom-input-group">
+            <div class="input-icon">
+              <i class="bi bi-card-list"></i>
+            </div>
+            <input
+              type="text"
+              class="form-control custom-control"
+              placeholder="subscription_id"
+              [(ngModel)]="filters.subscription_id"
+              (keyup)="debouncedLoad()"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-outline-secondary mt-3 rounded-pill px-4"
+        (click)="resetFilters()"
+      >
+        <i class="bi bi-arrow-counterclockwise me-1"></i>
+        Limpiar filtros
+      </button>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-panel">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+          <thead>
+            <tr>
+              <th class="ps-4">#</th>
+              <th>Profesor</th>
+              <th>Suscripción</th>
+              <th>Pago</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Estado</th>
+              <th class="text-end pe-4">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let s of subscriptions; let i = index">
+
+              <!-- Index -->
+              <td class="ps-4 text-muted fw-bold">
+                {{ (page - 1) * limit + (i + 1) }}
+              </td>
+
+              <!-- Profesor -->
+              <td class="fw-bold text-main">
+                <i class="bi bi-person-fill text-muted small me-1"></i>
+                {{ s.teacher?.name || '—' }}
+              </td>
+
+              <!-- Suscripción -->
+              <td class="text-muted">
+                <i class="bi bi-card-checklist text-muted small me-1"></i>
+                {{ s.subscription?.title || s.subscription_id }}
+              </td>
+
+              <!-- Pago -->
+              <td class="text-muted small">
+                <i class="bi bi-credit-card me-1"></i>
+                {{ s.payment_id ? s.payment_id : '—' }}
+              </td>
+
+              <!-- Fecha inicio -->
+              <td>
+                <i class="bi bi-calendar-event text-muted small me-1"></i>
+                {{ s.start_date | date:'mediumDate' }}
+              </td>
+
+              <!-- Fecha fin -->
+              <td>
+                <i class="bi bi-calendar-x text-muted small me-1"></i>
+                {{ s.end_date ? (s.end_date | date:'mediumDate') : '—' }}
+              </td>
+
+              <!-- Estado -->
+              <td>
+                <span class="badge"
+                      [ngClass]="{
+                        'bg-success': s.status === 'active',
+                        'bg-danger': s.status === 'expired',
+                        'bg-secondary': s.status === 'cancelled'
+                      }">
+                  {{ s.status }}
+                </span>
+              </td>
+
+              <!-- Acciones -->
+              <td class="text-end pe-4">
+                <div class="d-flex justify-content-end gap-2">
+                  <button class="btn btn-sm btn-icon-only btn-outline-primary"
+                          title="Ver detalles"
+                          (click)="goToDetail(s.id)">
+                    <i class="bi bi-eye-fill"></i>
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+
+            <!-- SIN RESULTADOS -->
+            <tr *ngIf="subscriptions.length === 0">
+              <td colspan="8" class="text-center py-5">
+                <div class="d-flex flex-column align-items-center opacity-50">
+                  <i class="bi bi-inbox display-4 mb-3"></i>
+                  <h5>No se encontraron resultados</h5>
+                  <p class="small">Intenta cambiar los filtros de búsqueda</p>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAGINACIÓN -->
+    <div class="pagination-wrapper mt-4" *ngIf="subscriptions.length > 0">
+      <button class="btn btn-outline-secondary rounded-pill btn-sm px-3"
+              [disabled]="page === 1"
+              (click)="prevPage()">
+        <i class="bi bi-chevron-left me-1"></i> Anterior
+      </button>
+
+      <span class="mx-3 text-muted small fw-bold">
+        Página {{ page }}
+      </span>
+
+      <button class="btn btn-outline-secondary rounded-pill btn-sm px-3"
+              [disabled]="!hasMore"
+              (click)="nextPage()">
+        Siguiente <i class="bi bi-chevron-right ms-1"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>

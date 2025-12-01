@@ -13,14 +13,14 @@
 
         <!-- WELCOME SECTION -->
         <div class="mb-5 mt-4 text-center text-md-start">
-            <h2 class="fw-bold welcome-title">Bienvenido, Administrador</h2>
+            <!-- AQUÍ ESTÁ EL CAMBIO: Uso de variable dinámica -->
+            <h2 class="fw-bold welcome-title">Bienvenido, {{ adminName }}</h2>
             <p class="welcome-text">
                 Aquí puedes monitorear la actividad global de la plataforma y acceder a las áreas de gestión más
                 importantes.
             </p>
         </div>
 
-        <!--<button (click)="refresh()" class="refresh-btn">Actualizar</button>-->
         <!-- ROW 1 — Primary Stats -->
         <div class="stats-row">
 
@@ -105,6 +105,5 @@
             </div>
         </div>
     </div>
-
 
 </div>

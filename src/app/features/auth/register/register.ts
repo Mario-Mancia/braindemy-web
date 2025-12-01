@@ -60,7 +60,7 @@ export class Register {
     email: ['', [Validators.required, Validators.email]],
     birthdate: ['', [Validators.required, this.minAgeValidator(18)]],
     timezone: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, this.passwordStrengthValidator()]],
     confirmPassword: ['', Validators.required],
   }, { validators: this.passwordsMatch });
 
@@ -68,6 +68,34 @@ export class Register {
     const control = this.form.get(c);
     return control && control.invalid && (control.dirty || control.touched);
   }
+
+  passwordStrengthValidator() {
+  return (control: AbstractControl) => {
+    const value = control.value || '';
+
+    // 1. Reglas base
+    const hasMinLength = value.length >= 8;
+    const hasUppercase = /[A-Z]/.test(value);
+    const hasSpecial = /[^A-Za-z0-9]/.test(value);
+
+    // 2. Lógica progresiva
+    if (!hasMinLength) {
+      return { minLength: true };
+    }
+
+    // Si ya cumple longitud, validamos lo demás:
+    if (!hasUppercase || !hasSpecial) {
+      return {
+        weakPassword: {
+          missingUppercase: !hasUppercase,
+          missingSpecial: !hasSpecial
+        }
+      };
+    }
+
+    return null;
+  };
+}
 
   passwordsMatch(group: any) {
     const pass = group.get('password')?.value;
@@ -94,33 +122,33 @@ export class Register {
 
 
   submit() {
-  this.registerError = null;
+    this.registerError = null;
 
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
-  }
-
-  const { confirmPassword, ...rest } = this.form.value;
-
-  const dataToSend = {
-    ...rest,
-    birthdate: rest.birthdate ? new Date(rest.birthdate).toISOString() : undefined,
-    role: 'teacher',
-  };
-
-  this.loading = true;
-
-  this.auth.register(dataToSend).subscribe({
-    next: (res: any) => {
-      this.loading = false;
-      this.router.navigate(['/auth/login']);
-    },
-    error: (err: any) => {
-      this.loading = false;
-      console.error('Error de registro:', err);
-      this.registerError = err?.error?.message || 'No se pudo registrar el usuario.';
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
-  });
-}
+
+    const { confirmPassword, ...rest } = this.form.value;
+
+    const dataToSend = {
+      ...rest,
+      birthdate: rest.birthdate ? new Date(rest.birthdate).toISOString() : undefined,
+      role: 'teacher',
+    };
+
+    this.loading = true;
+
+    this.auth.register(dataToSend).subscribe({
+      next: (res: any) => {
+        this.loading = false;
+        this.router.navigate(['/auth/login']);
+      },
+      error: (err: any) => {
+        this.loading = false;
+        console.error('Error de registro:', err);
+        this.registerError = err?.error?.message || 'No se pudo registrar el usuario.';
+      }
+    });
+  }
 }

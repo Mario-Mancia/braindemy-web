@@ -5,6 +5,7 @@ import { PublicRoutingModule } from './public-routing-module';
 import { Landing } from './landing/landing';
 import { About } from './about/about';
 import { Contact } from './contact/contact';
+import { AuthRoutingModule } from '../auth/auth-routing-module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { Contact } from './contact/contact';
   ],
   imports: [
     CommonModule,
-    PublicRoutingModule
+    PublicRoutingModule,
+    AuthRoutingModule
   ]
 })
 export class PublicModule { }

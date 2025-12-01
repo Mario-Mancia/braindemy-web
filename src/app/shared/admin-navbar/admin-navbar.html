@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg custom-navbar custom-navbar-admin sticky-top">
-  <div class="container-fluid container-xl"> <!-- Aplicando contenedor amplio consistente -->
+  <div class="container-fluid container-xl">
 
     <!-- BRAND -->
     <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/admin">
@@ -8,7 +8,8 @@
     </a>
 
     <!-- Mobile toggle -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar"
+      aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -16,31 +17,123 @@
 
       <!-- LEFT MENU -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-        <!-- Uso de la clase 'nav-link' para obtener el estilo de barra activa -->
+
+        <!-- DASHBOARD -->
         <li class="nav-item">
           <a routerLink="/admin" routerLinkActive="active" class="nav-link" [routerLinkActiveOptions]="{ exact: true }">
             <i class="bi bi-speedometer2 me-2"></i> Dashboard
           </a>
         </li>
 
-        <li class="nav-item">
-          <a routerLink="/admin/users" routerLinkActive="active" class="nav-link">
+        <!-- ======================= -->
+        <!--   USUARIOS DROPDOWN     -->
+        <!-- ======================= -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">
             <i class="bi bi-people-fill me-2"></i> Usuarios
           </a>
+
+          <ul class="dropdown-menu shadow border-0 rounded-3">
+
+            <!-- Gestión de usuarios -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/users"
+                routerLinkActive="active">
+                <i class="bi bi-people"></i> Gestión de usuarios
+              </a>
+            </li>
+
+            <!-- Docentes -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/teachers"
+                routerLinkActive="active">
+                <i class="bi bi-person-badge-fill"></i> Docentes
+              </a>
+            </li>
+
+            <!-- Alumnos -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/students"
+                routerLinkActive="active">
+                <i class="bi bi-person-lines-fill"></i> Alumnos
+              </a>
+            </li>
+
+          </ul>
         </li>
 
-        <li class="nav-item">
-          <a routerLink="/admin/courses" routerLinkActive="active" class="nav-link">
+        <!-- ======================= -->
+        <!--       CURSOS DROPDOWN   -->
+        <!-- ======================= -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">
             <i class="bi bi-journal-bookmark-fill me-2"></i> Cursos
           </a>
+
+          <ul class="dropdown-menu shadow border-0 rounded-3">
+
+            <!-- Lista de cursos -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/courses"
+                routerLinkActive="active">
+                <i class="bi bi-journal-text"></i> Lista de cursos
+              </a>
+            </li>
+
+            <!-- Matrículas -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/course-enrollments"
+                routerLinkActive="active">
+                <i class="bi bi-person-lines-fill"></i> Matrículas en cursos
+              </a>
+            </li>
+
+            <!-- Valoraciones -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/course-reviews"
+                routerLinkActive="active">
+                <i class="bi bi-star-half"></i> Reseñas de cursos
+              </a>
+            </li>
+
+          </ul>
         </li>
 
-        <li class="nav-item">
-          <a routerLink="/admin/finances" routerLinkActive="active" class="nav-link">
+        <!-- ======================= -->
+        <!--      FINANZAS DROPDOWN  -->
+        <!-- ======================= -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">
             <i class="bi bi-cash-stack me-2"></i> Finanzas
           </a>
+
+          <ul class="dropdown-menu shadow border-0 rounded-3">
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/payments"
+                routerLinkActive="active">
+                <i class="bi bi-credit-card"></i> Pagos
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/subscriptions"
+                routerLinkActive="active">
+                <i class="bi bi-basket2"></i> Planes de pagos
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin/teacher-subscriptions"
+                routerLinkActive="active">
+                <i class="bi bi-person-vcard"></i> Suscripciones de docentes
+              </a>
+            </li>
+
+          </ul>
         </li>
 
+        <!-- TICKETS -->
         <li class="nav-item">
           <a routerLink="/admin/tickets" routerLinkActive="active" class="nav-link">
             <i class="bi bi-life-preserver me-2"></i> Tickets
@@ -49,23 +142,26 @@
 
       </ul>
 
-      <!-- RIGHT MENU -->
+      <!-- ======================= -->
+      <!--        RIGHT MENU       -->
+      <!-- ======================= -->
       <div class="d-flex align-items-center gap-3">
 
         <!-- Notifications -->
-        <button class="btn btn-icon btn-admin-action position-relative"> <!-- Clase de estilo de acción -->
+        <button class="btn btn-icon btn-admin-action position-relative">
           <i class="bi bi-bell-fill fs-5"></i>
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger shadow-sm">
             3
           </span>
         </button>
 
-        <!-- User dropdown -->
+        <!-- USER DROPDOWN -->
         <div class="dropdown">
-          <!-- Clase de estilo de acción para el botón del dropdown -->
-          <button class="btn btn-admin-action dropdown-toggle d-flex align-items-center gap-2 rounded-pill pe-3" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-admin-action dropdown-toggle d-flex align-items-center gap-2 rounded-pill pe-3"
+            data-bs-toggle="dropdown">
+
             <img src="https://ui-avatars.com/api/?name=Admin" class="avatar">
-            <span class="d-none d-md-inline">Admin</span> <!-- Ocultar texto en pantallas muy pequeñas -->
+            <span class="d-none d-md-inline">Admin</span>
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3">
@@ -84,11 +180,9 @@
 
             <li><hr class="dropdown-divider"></li>
 
-            <!-- Theme Switch - Uso de Angular bindings, mantener la estructura -->
             <li>
               <button class="dropdown-item d-flex align-items-center gap-2" (click)="toggleTheme()">
-                <i class="bi" 
-                  [ngClass]="currentTheme === 'light' ? 'bi-moon-fill' : 'bi-sun-fill'"></i>
+                <i class="bi" [ngClass]="currentTheme === 'light' ? 'bi-moon-fill' : 'bi-sun-fill'"></i>
                 {{ currentTheme === 'light' ? 'Modo oscuro' : 'Modo claro' }}
               </button>
             </li>

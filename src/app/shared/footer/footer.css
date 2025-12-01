@@ -2,8 +2,6 @@
 /* 1. VARIABLES LOCALES                         */
 /* ============================================ */
 :host {
-  /* Usamos un gris muy suave para el footer en modo light, 
-     diferente al blanco puro para que se sienta como "base" */
   --footer-bg: #f8f9fa; 
   
   --footer-heading: var(--text-light);
@@ -14,29 +12,23 @@
   --border-color: rgba(0,0,0,0.08);
   
   --brand-color: var(--brand-green);
-  --icon-bg: #e9ecef;
-  --icon-color: #495057;
-
+  
   display: block;
-  margin-top: auto; /* Empuja el footer al fondo si se usa en flex-column layout */
+  margin-top: auto;
 }
 
 /* DARK MODE OVERRIDES */
 :host-context([data-bs-theme="dark"]) {
-  /* Un tono ligeramente diferente al fondo principal (#121212) 
-     para crear jerarquía visual */
   --footer-bg: #1a1a1a; 
   
   --footer-heading: #ffffff;
   --footer-text: #adb5bd;
   --footer-link: #adb5bd;
-  --footer-link-hover: #2ecc71; /* Verde brillante */
+  --footer-link-hover: #2ecc71; 
   
   --border-color: #333;
   
-  --brand-color: #2ecc71;
-  --icon-bg: #2b2b2b;
-  --icon-color: #e9ecef;
+  --brand-color: #2ecc71; 
 }
 
 /* ============================================ */
@@ -68,12 +60,30 @@
   letter-spacing: -0.5px;
 }
 
-.brand-icon {
-  color: var(--brand-color);
-  font-size: 1.5rem;
+/* ============================================ */
+/* 4. LOGO TINTADO (Configuración Base)         */
+/* ============================================ */
+.brand-logo {
+  width: 32px; 
+  height: 32px;
+  
+  /* El color de fondo define el color final del icono */
+  background-color: var(--brand-color);
+  
+  /* Configuración de la máscara (La URL viene del HTML inline style) */
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  
+  transition: background-color 0.3s ease;
 }
 
-/* Estilos de Links */
+/* ============================================ */
+/* 5. LINKS                                     */
+/* ============================================ */
 .footer-links li {
   margin-bottom: 10px;
 }
@@ -83,40 +93,18 @@
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
   display: inline-block;
+  cursor: pointer;
 }
 
 .footer-link:hover {
   color: var(--footer-link-hover);
-  transform: translateX(3px); /* Pequeño desplazamiento a la derecha */
+  transform: translateX(3px); 
 }
 
 /* ============================================ */
-/* 4. BOTONES SOCIALES                          */
-/* ============================================ */
-.social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: var(--icon-bg);
-  color: var(--icon-color);
-  border-radius: 50%; /* Círculos perfectos */
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-btn:hover {
-  background-color: var(--brand-color);
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 10px rgba(26, 188, 156, 0.3);
-}
-
-/* ============================================ */
-/* 5. UTILIDADES                                */
+/* 6. UTILIDADES                                */
 /* ============================================ */
 .footer-divider {
   border-color: var(--border-color);
-  opacity: 1; /* Bootstrap hr tiene opacidad por defecto, la quitamos para controlar color */
+  opacity: 1;
 }

@@ -86,7 +86,7 @@
                   <!-- Mensajes de Error -->
                   <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('password')">
                     <span *ngIf="form.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
-                    <span *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 6 caracteres.</span>
+                    <span *ngIf="form.get('password')?.errors?.['minlength']">Ingresa una contraseña válida.</span>
                   </div>
                 </div>
 

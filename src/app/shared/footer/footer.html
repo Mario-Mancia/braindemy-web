@@ -4,9 +4,14 @@
     <div class="row g-4 justify-content-between">
       
       <!-- 1. Branding y Descripción -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
         <div class="d-flex align-items-center mb-3 brand-wrapper">
-          <i class="bi bi-mortarboard-fill brand-icon me-2"></i>
+          
+          <!-- LOGO AJUSTADO: Ruta definida aquí para evitar errores de CSS -->
+          <div class="brand-logo me-2" 
+               style="-webkit-mask-image: url('BraindemyLogoBL.png'); mask-image: url('BraindemyLogoBL.png');">
+          </div>
+          
           <span class="h4 fw-bold mb-0 brand-name">Braindemy</span>
         </div>
         <p class="footer-text pe-lg-5">
@@ -15,46 +20,33 @@
         </p>
       </div>
 
-      <!-- 2. Enlaces Rápidos -->
-      <div class="col-lg-2 col-md-6">
+      <!-- 2. Enlaces Plataforma -->
+      <div class="col-lg-3 col-md-6">
         <h5 class="fw-bold mb-3 footer-heading">Plataforma</h5>
         <ul class="list-unstyled footer-links">
-          <li><a href="#" class="footer-link">Inicio</a></li>
-          <li><a href="#" class="footer-link">Características</a></li>
-          <li><a href="#" class="footer-link">Precios</a></li>
-          <li><a href="#" class="footer-link">Para Docentes</a></li>
+          <li>
+            <a routerLink="/landing" class="footer-link">Inicio</a>
+          </li>
+          <li>
+            <a routerLink="/about" class="footer-link">Acerca de nosotros</a>
+          </li>
+          <li>
+            <a routerLink="/pricing" class="footer-link">Precios</a>
+          </li>
         </ul>
       </div>
 
-      <!-- 3. Legal y Soporte -->
-      <div class="col-lg-2 col-md-6">
+      <!-- 3. Enlaces Soporte -->
+      <div class="col-lg-3 col-md-6">
         <h5 class="fw-bold mb-3 footer-heading">Soporte</h5>
         <ul class="list-unstyled footer-links">
-          <li><a href="#" class="footer-link">Centro de Ayuda</a></li>
-          <li><a href="#" class="footer-link">Términos de uso</a></li>
-          <li><a href="#" class="footer-link">Privacidad</a></li>
-          <li><a href="#" class="footer-link">Contacto</a></li>
+          <li>
+            <a routerLink="/terms" class="footer-link">Términos de uso</a>
+          </li>
+          <li>
+            <a routerLink="/contact" class="footer-link">Contacto</a>
+          </li>
         </ul>
-      </div>
-
-      <!-- 4. Redes Sociales -->
-      <div class="col-lg-3 col-md-6">
-        <h5 class="fw-bold mb-3 footer-heading">Síguenos</h5>
-        <p class="footer-text mb-3">Mantente al día con las últimas actualizaciones.</p>
-        <div class="d-flex gap-3 social-icons">
-          <a href="#" class="social-btn" aria-label="Facebook">
-            <i class="bi bi-facebook"></i>
-          </a>
-          <a href="#" class="social-btn" aria-label="Twitter">
-            <i class="bi bi-twitter-x"></i>
-          </a>
-          <a href="#" class="social-btn" aria-label="Instagram">
-            <i class="bi bi-instagram"></i>
-          </a>
-          <a href="#" class="social-btn" aria-label="LinkedIn">
-            <i class="bi bi-linkedin"></i>
-          </a>
-        </div>
       </div>
 
     </div>
@@ -66,12 +58,12 @@
     <div class="row align-items-center">
       <div class="col-md-6 text-center text-md-start">
         <p class="footer-text small mb-0">
-          © {{ currentYear }} Braindemy Inc. Todos los derechos reservados.
+          © {{ currentYear }} Braindemy. Todos los derechos reservados.
         </p>
       </div>
       <div class="col-md-6 text-center text-md-end d-none d-md-block">
         <p class="footer-text small mb-0">
-          Hecho con <i class="bi bi-heart-fill text-danger mx-1" style="font-size: 0.8rem;"></i> para la educación.
+          Desarrollado por TechniSoft© para la educación.
         </p>
       </div>
     </div>

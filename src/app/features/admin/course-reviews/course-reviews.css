@@ -1,5 +1,5 @@
 /* ======================================================== */
-/* 1. VARIABLES LOCALES                                     */
+/* 1. VARIABLES LOCALES (Igual que course-enrollments.css)  */
 /* ======================================================== */
 :host {
   --bg-page: var(--surface-light);
@@ -45,28 +45,36 @@
   --hero-bg: #114e3e;
 }
 
-/* ======================================================== */
-/* 2. HERO (Pagos)                                          */
-/* ======================================================== */
-.users-hero {
+/* ============================================ */
+/* 2. HERO (Course Reviews)                     */
+/* ============================================ */
+.users-hero,
+.reviews-hero {
   background-color: var(--hero-bg);
   min-height: 160px;
   padding: 1.8rem 1.4rem;
   border-radius: 20px;
   margin-bottom: 2rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   color: var(--text-inverse);
 }
 
-.hero-subtitle {
+.reviews-hero h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.reviews-hero p {
+  margin-top: 4px;
   opacity: 0.9;
 }
 
-/* ======================================================== */
-/* 3. PANELES (UNI-style)                                   */
-/* ======================================================== */
+/* ============================================ */
+/* 3. PANELES (mismo estilo UNI)                */
+/* ============================================ */
 .panel,
 .filters-panel,
 .table-panel {
@@ -88,9 +96,9 @@
   font-size: 0.9rem;
 }
 
-/* ======================================================== */
-/* 4. INPUTS UNI-style                                      */
-/* ======================================================== */
+/* ============================================ */
+/* 4. INPUTS UNI-style                          */
+/* ============================================ */
 .custom-input-group {
   position: relative;
 }
@@ -102,13 +110,18 @@
   transform: translateY(-50%);
   color: var(--input-icon-color);
   pointer-events: none;
+  font-size: 1rem;
+}
+
+.custom-control {
+  padding-left: 2.2rem !important;
 }
 
 input,
 select {
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
-  padding: 10px 12px 10px 40px;
+  padding: 10px 12px;
   border-radius: 10px !important;
   font-size: 0.95rem;
   color: var(--text-main);
@@ -122,9 +135,9 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(26,188,156,0.15);
 }
 
-/* ======================================================== */
-/* 5. TABLA AVANZADA                                        */
-/* ======================================================== */
+/* ============================================ */
+/* 5. TABLA AVANZADA                            */
+/* ============================================ */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -151,9 +164,9 @@ select:focus {
   border-bottom: 1px solid var(--table-border-color);
 }
 
-/* ======================================================== */
-/* 6. BADGES — Estado de pagos                             */
-/* ======================================================== */
+/* ============================================ */
+/* 6. BADGES — Especiales para ratings          */
+/* ============================================ */
 .badge {
   padding: 6px 12px;
   border-radius: 50px;
@@ -162,43 +175,63 @@ select:focus {
   text-transform: capitalize;
 }
 
-/* Status personalizados */
-.badge.status-pending {
+/* 5 estrellas */
+.badge.rating-5 {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+/* 4 estrellas */
+.badge.rating-4 {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+/* 3 estrellas */
+.badge.rating-3 {
   background: rgba(241, 196, 15, 0.2);
   color: #f1c40f;
 }
 
-.badge.status-completed {
-  background: rgba(46, 204, 113, 0.2);
-  color: #2ecc71;
+/* 2 estrellas */
+.badge.rating-2 {
+  background: rgba(230, 126, 34, 0.2);
+  color: #e67e22;
 }
 
-.badge.status-failed {
-  background: rgba(231, 76, 60, 0.2);
+/* 1 estrella */
+.badge.rating-1 {
+  background: rgba(231, 76, 60, 0.15);
   color: #e74c3c;
 }
 
 /* Dark mode tuning */
-:host-context([data-bs-theme="dark"]) .badge.status-pending { color: #ffd35c; }
-:host-context([data-bs-theme="dark"]) .badge.status-completed { color: #6aff9c; }
-:host-context([data-bs-theme="dark"]) .badge.status-failed { color: #ff6b6b; }
+:host-context([data-bs-theme="dark"]) .badge.rating-5 { color: #6aff9c; }
+:host-context([data-bs-theme="dark"]) .badge.rating-4 { color: #6bbcff; }
+:host-context([data-bs-theme="dark"]) .badge.rating-3 { color: #f6d55c; }
+:host-context([data-bs-theme="dark"]) .badge.rating-2 { color: #ff9a57; }
+:host-context([data-bs-theme="dark"]) .badge.rating-1 { color: #ff6b6b; }
 
-/* ======================================================== */
-/* 7. BOTONES (acciones)                                   */
-/* ======================================================== */
+/* ============================================ */
+/* 7. BOTONES (Acciones)                         */
+/* ============================================ */
 .btn-icon-only {
   width: 36px;
   height: 36px;
   padding: 0;
-  border-radius: 10px !important;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ======================================================== */
-/* 8. PAGINACIÓN                                            */
-/* ======================================================== */
+.btn-outline-primary {
+  border-radius: 10px !important;
+}
+
+/* ============================================ */
+/* 8. PAGINACIÓN                                */
+/* ============================================ */
 .pagination-wrapper {
   display: flex;
   justify-content: center;
@@ -209,16 +242,11 @@ select:focus {
   border-radius: 50px !important;
 }
 
-/* ======================================================== */
-/* 9. RESPONSIVE                                            */
-/* ======================================================== */
+/* ============================================ */
+/* 9. RESPONSIVE                                */
+/* ============================================ */
 @media (max-width: 768px) {
   .filters-panel {
     padding: 1rem;
-  }
-
-  input,
-  select {
-    padding-left: 38px !important;
   }
 }

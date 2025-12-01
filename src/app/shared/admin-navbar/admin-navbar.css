@@ -180,3 +180,96 @@
       display: none;
   }
 }
+
+/* ============================================ */
+/* 5. DROPDOWNS DE CURSOS & FINANZAS            */
+/* ============================================ */
+
+/* Asegura que el toggle tenga el mismo comportamiento que otros nav-link */
+.custom-navbar-admin .nav-item.dropdown .nav-link.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Hover del toggle */
+.custom-navbar-admin .nav-item.dropdown .nav-link.dropdown-toggle:hover {
+    color: var(--navbar-link-active) !important;
+}
+
+/* Flecha del dropdown */
+.custom-navbar-admin .nav-item.dropdown .dropdown-toggle::after {
+    border-top-color: var(--navbar-text-color) !important;
+    transition: transform 0.3s ease;
+}
+
+/* Flecha al abrir */
+.show > .dropdown-toggle::after {
+    transform: rotate(180deg);
+}
+
+/* ---------- AJUSTE: Unifica estilo de los dropdowns izquierdos
+   con el dropdown derecho (shadow-lg, border-0, rounded) ---------- */
+
+/* Dropdown general (izquierdos) — ahora usan la misma apariencia que el dropdown del usuario */
+.custom-navbar-admin .nav-item.dropdown .dropdown-menu {
+    background-color: var(--navbar-bg-color);
+    /* Mantener border-0 para coincidir con el dropdown derecho */
+    border: 0;
+    /* Sombra similar a shadow-lg (ajustada para ser consistente) */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    padding: 0.5rem;
+    min-width: 230px;
+    border-radius: 0.75rem;
+    animation: fadeInDropdown 0.18s ease-out;
+}
+
+/* Items internos */
+.custom-navbar-admin .nav-item.dropdown .dropdown-item {
+    color: var(--navbar-text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+    /* asegurar contraste en dark/light */
+    background-clip: padding-box;
+}
+
+/* Hover */
+.custom-navbar-admin .nav-item.dropdown .dropdown-item:hover {
+    background-color: var(--btn-icon-hover-bg);
+    color: var(--navbar-link-active);
+}
+
+/* Íconos dentro del dropdown */
+.custom-navbar-admin .nav-item.dropdown .dropdown-item i {
+    font-size: 1.05rem;
+    opacity: 0.9;
+}
+
+/* Items disabled */
+.custom-navbar-admin .nav-item.dropdown .dropdown-item.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Animación suave */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark mode ajustes para mantener contraste consistente */
+:host-context([data-bs-theme="dark"]) .custom-navbar-admin .nav-item.dropdown .dropdown-menu {
+    background-color: #0c3f2e;
+    border-color: #1f1f1f;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+}

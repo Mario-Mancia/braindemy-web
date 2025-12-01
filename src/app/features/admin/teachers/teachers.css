@@ -1,26 +1,33 @@
 /* ============================================ */
-/* 1. VARIABLES LOCALES (Igual que users.css)   */
+/* 1. VARIABLES LOCALES                         */
 /* ============================================ */
 :host {
   --bg-page: var(--surface-light);
   --bg-panel: #ffffff;
   --border-panel: rgba(0,0,0,0.08);
-  
+
   --text-main: var(--text-light);
   --text-muted-local: var(--muted-light);
   --text-inverse: #ffffff;
 
+  /* Inputs estilo Register/Edit */
   --input-bg: #ffffff;
   --input-border: #dee2e6;
   --input-focus-border: var(--brand-green);
   --input-icon-color: #adb5bd;
   --separator-color: #e9ecef;
 
+  /* Table specific */
   --table-head-bg: #f8f9fa;
   --table-hover-bg: #f8f9fa;
   --table-border-color: rgba(0,0,0,0.05);
 
+  /* Hero Colors */
   --hero-bg: var(--brand-green);
+
+  /* Avatar pequeño */
+  --avatar-small-bg: rgba(26, 188, 156, 0.1);
+  --avatar-small-text: var(--brand-green);
 
   display: block;
 }
@@ -33,119 +40,134 @@
   --text-main: var(--text-dark);
   --text-muted-local: var(--muted-dark);
 
+  /* Inputs Dark */
   --input-bg: #2f3542;
   --input-border: #444;
   --input-icon-color: #888;
   --separator-color: #4a4a4a;
 
+  /* Table Dark */
   --table-head-bg: #2f3035;
   --table-hover-bg: rgba(255,255,255,0.03);
   --table-border-color: rgba(255,255,255,0.08);
 
+  /* Hero Dark */
   --hero-bg: #114e3e;
+
+  --avatar-small-bg: rgba(255,255,255,0.05);
+  --avatar-small-text: #58d68d;
 }
 
 /* ============================================ */
-/* 2. HERO (Sólido igual a Users)               */
+/* 2. HERO SECTION (Teachers)                   */
 /* ============================================ */
-.courses-hero {
+.teachers-hero {
   background-color: var(--hero-bg);
   min-height: 160px;
-  padding: 1.8rem 1.4rem;
-  border-radius: 20px;
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-  color: var(--text-inverse);
-}
-
-.courses-hero h1 {
-  margin: 0;
-  font-size: 1.9rem;
-}
-.courses-hero p {
-  margin-top: 4px;
-  opacity: 0.9;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
 }
 
 /* ============================================ */
-/* 3. PANELES                                   */
+/* 3. PANELES (filters + table)                 */
 /* ============================================ */
-.panel,
 .filters-panel,
 .table-panel {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-panel);
-  border-radius: 20px;
   padding: 1.5rem;
+  border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  margin-bottom: 1.5rem;
 }
 
 .section-title {
   color: var(--text-main);
   font-size: 1.25rem;
 }
+
 .section-desc {
   color: var(--text-muted-local);
   font-size: 0.9rem;
 }
 
 /* ============================================ */
-/* 4. INPUTS UNI-style                           */
+/* 4. INPUTS ESTILO REGISTER                    */
 /* ============================================ */
-.input-group,
-.custom-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-}
-
-.label {
+.form-label {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted-local);
+  margin-bottom: 0.4rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-input,
-select {
+.custom-input-group {
+  display: flex;
+  align-items: center;
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
-  padding: 10px 12px;
   border-radius: 10px;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  transition: border-color 0.2s ease;
+  overflow: hidden;
+  transition: all 0.2s ease;
 }
 
-input:focus,
-select:focus {
+.custom-input-group:focus-within {
   border-color: var(--input-focus-border);
   box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.15);
+}
+
+.input-icon {
+  width: 42px;
+  height: 42px;
+  background-color: rgba(0,0,0,0.02);
+  border-right: 1px solid var(--separator-color);
+  color: var(--input-icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.custom-control {
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--text-main) !important;
+  padding: 0.5rem 0.8rem;
+  width: 100%;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.custom-control::placeholder {
+  color: var(--text-muted-local);
+  opacity: 0.6;
+}
+
+select.custom-control option {
+  background-color: var(--bg-panel);
+  color: var(--text-main);
 }
 
 /* ============================================ */
 /* 5. TABLA AVANZADA                            */
 /* ============================================ */
 .table {
-  width: 100%;
-  border-collapse: collapse;
-  color: var(--text-main);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-main);
+  --bs-table-border-color: var(--table-border-color);
 }
 
 .table thead th {
   background-color: var(--table-head-bg);
-  padding: 1rem 0.5rem;
-  font-weight: 700;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
   color: var(--text-muted-local);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 1rem 0.5rem;
   border-bottom: 1px solid var(--border-panel);
 }
 
@@ -155,73 +177,62 @@ select:focus {
 
 .table tbody td {
   padding: 1rem 0.5rem;
+  vertical-align: middle;
   border-bottom: 1px solid var(--table-border-color);
 }
 
-/* ============================================ */
-/* 6. BADGES (Igual que Users)                  */
-/* ============================================ */
-.badge {
-  padding: 6px 12px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: capitalize;
+/* Avatar en tabla */
+.user-avatar-small {
+  width: 36px;
+  height: 36px;
+  background-color: var(--avatar-small-bg);
+  color: var(--avatar-small-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
-.badge.active { background: rgba(40, 167, 69, 0.15); color: #28a745; }
-.badge.inactive { background: rgba(108, 117, 125, 0.15); color: #6c757d; }
-
-:host-context([data-bs-theme="dark"]) .badge.active { color: #4cd16e; }
-:host-context([data-bs-theme="dark"]) .badge.inactive { color: #aab0b6; }
+/* Texto utilitario */
+.text-main { color: var(--text-main); }
+.text-muted-local { color: var(--text-muted-local); }
 
 /* ============================================ */
-/* 7. BOTONES                                   */
+/* 6. BADGES & BOTONES                          */
 /* ============================================ */
-.btn-details {
-  background: var(--brand-green);
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  transition: 0.2s ease;
+
+/* Rating y cursos activos ya tienen colores propios via BS */
+
+/* Botones icon-only */
+.btn-icon-only {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
-.btn-details:hover {
-  opacity: 0.9;
+
+.btn-icon-only:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* ============================================ */
-/* 8. PAGINACIÓN                                */
+/* 7. PAGINACIÓN                                */
 /* ============================================ */
 .pagination-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.5rem;
+  align-items: center;
 }
 
-.pagination button {
-  background: var(--brand-green);
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-}
-
-.pagination button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* ============================================ */
-/* 9. RESPONSIVE                                */
-/* ============================================ */
-@media (max-width: 768px) {
-  .filters-panel {
-    padding: 1rem;
-  }
-  .input-group {
-    width: 100%;
-  }
+/* Asegurar estilo visual consistente */
+.pagination-wrapper .btn {
+  font-weight: 600;
 }

@@ -13,18 +13,15 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 })
 export class UserEdit implements OnInit {
   apiUrl = environment.apiUrl;
-
   userId: string = '';
-  user: any = null;
-
-  newPassword: string = "";
-
+  
   loading: boolean = true;
   saving: boolean = false;
   error: string | null = null;
   success: boolean = false;
 
-  // Timezones
+  editForm: FormGroup;
+
   timezones = [
     { value: 'UTC−06:00', label: 'UTC−06:00 El Salvador (Central Standard Time)' },
     { value: 'UTC−05:00', label: 'UTC−05:00 Ciudad de México / Bogotá' },
@@ -37,14 +34,25 @@ export class UserEdit implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    private fb: FormBuilder
+  ) {
+    // Definición del Formulario
+    this.editForm = this.fb.group({
+      first_name: ['', [Validators.required, Validators.minLength(2)]],
+      last_name: ['', [Validators.required, Validators.minLength(2)]],
+      email: [{ value: '', disabled: true }],
+      // APLICAMOS EL VALIDADOR PERSONALIZADO AQUÍ
+      birthdate: ['', [Validators.required, this.birthdateValidator]], 
+      timezone: [''],
+      role: ['', Validators.required],
+      status: ['', Validators.required],
+      newPassword: ['', [Validators.minLength(6)]]
+    });
+  }
 
   ngOnInit(): void {
-    console.log("UserEdit → ngOnInit()");
-
     this.userId = this.route.snapshot.paramMap.get('id')!;
-    console.log("ID recibido:", this.userId);
 
     if (!this.userId) {
       this.error = "ID de usuario inválido.";
@@ -53,31 +61,43 @@ export class UserEdit implements OnInit {
     }
 
     this.loadUser();
+
+    // LISTENERS:
+    // Si cambia el rol, debemos re-validar la fecha de nacimiento
+    // (porque un niño de 10 años es válido si es student, pero inválido si es teacher)
+    this.editForm.get('role')?.valueChanges.subscribe(() => {
+      this.editForm.get('birthdate')?.updateValueAndValidity();
+    });
   }
 
   loadUser() {
     this.loading = true;
     this.error = null;
-
     const url = `${this.apiUrl}/users/${this.userId}`;
-    console.log("GET →", url);
 
-    this.http.get(url).subscribe({
-      next: (res: any) => {
-        console.log("Respuesta GET user:", res);
-
-        // Convertir birthdate a YYYY-MM-DD si viene con tiempo
+    this.http.get<any>(url).subscribe({
+      next: (res) => {
+        let formattedDate = '';
         if (res.birthdate) {
-          res.birthdate = res.birthdate.substring(0, 10);
+          formattedDate = res.birthdate.substring(0, 10);
         }
 
-        this.user = res;
+        this.editForm.patchValue({
+          first_name: res.first_name,
+          last_name: res.last_name,
+          email: res.email,
+          birthdate: formattedDate,
+          timezone: res.timezone,
+          role: res.role,
+          status: res.status,
+          newPassword: ''
+        });
+
         this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("Error GET user:", err);
-
         this.error = "No se pudo cargar la información del usuario.";
         this.loading = false;
         this.cdr.detectChanges();
@@ -85,42 +105,57 @@ export class UserEdit implements OnInit {
     });
   }
 
-  saveChanges() {
-    if (!this.user) return;
+  isFieldInvalid(field: string): boolean {
+    const control = this.editForm.get(field);
+    return control ? (control.invalid && (control.dirty || control.touched)) : false;
+  }
 
-    console.log("🔵 saveChanges() ejecutado");
+  // Helper para obtener el error específico de fecha en el HTML
+  getBirthdateError(): string | null {
+    const control = this.editForm.get('birthdate');
+    if (control?.hasError('future')) return 'La fecha no puede ser futura.';
+    if (control?.hasError('underage')) {
+        const err = control.getError('underage');
+        return `La edad mínima para este rol es de ${err.min} años (actual: ${err.actual}).`;
+    }
+    if (control?.hasError('required')) return 'La fecha es obligatoria.';
+    return null;
+  }
+
+  saveChanges() {
+    if (this.editForm.invalid) {
+      this.editForm.markAllAsTouched();
+      return;
+    }
+
+    const confirmSave = confirm("¿Estás seguro de que deseas guardar los cambios?");
+    if (!confirmSave) return;
 
     this.saving = true;
     this.error = null;
     this.success = false;
 
     const url = `${this.apiUrl}/users/${this.userId}`;
-    console.log("PATCH →", url);
+    const formValues = this.editForm.getRawValue();
 
-    // Construir payload limpio (sin email!)
     const payload: any = {
-      first_name: this.user.first_name,
-      last_name: this.user.last_name,
-      birthdate: this.user.birthdate || null,
-      timezone: this.user.timezone,
-      role: this.user.role,
-      status: this.user.status,
+      first_name: formValues.first_name,
+      last_name: formValues.last_name,
+      birthdate: formValues.birthdate || null,
+      timezone: formValues.timezone,
+      role: formValues.role,
+      status: formValues.status,
     };
 
-    // Solo si el admin escribió una nueva contraseña
-    if (this.newPassword.trim() !== "") {
-      payload.new_password = this.newPassword.trim();
+    if (formValues.newPassword && formValues.newPassword.trim() !== "") {
+      payload.new_password = formValues.newPassword.trim();
     }
-
-    console.log("Payload enviado al backend:", payload);
 
     this.http.patch(url, payload).subscribe({
       next: (res) => {
-        console.log("Respuesta PATCH:", res);
-
         this.saving = false;
         this.success = true;
-        this.newPassword = "";
+        this.editForm.patchValue({ newPassword: '' });
 
         setTimeout(() => {
           this.success = false;
@@ -132,8 +167,6 @@ export class UserEdit implements OnInit {
       },
       error: (err) => {
         console.error("Error PATCH user:", err);
-        if (err.error) console.error("Backend response:", err.error);
-
         this.error = "No se pudieron guardar los cambios.";
         this.saving = false;
         this.cdr.detectChanges();
@@ -142,7 +175,50 @@ export class UserEdit implements OnInit {
   }
 
   goBack() {
-    console.log("Regresar a detalle usuario:", this.userId);
     this.router.navigate(['/admin/user-detail', this.userId]);
+  }
+
+  // ==========================================
+  // VALIDADOR PERSONALIZADO DE FECHA Y EDAD
+  // ==========================================
+  birthdateValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) return null; // Si está vacío, lo maneja el Validators.required
+
+    const birthDate = new Date(control.value + 'T00:00:00'); // Forzar hora local para evitar líos de timezone
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalizar hoy a medianoche
+
+    // 1. Validar fecha futura
+    if (birthDate > today) {
+      return { future: true };
+    }
+
+    // 2. Calcular edad exacta
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    // 3. Determinar edad mínima según el rol
+    // Accedemos al formulario padre para leer el campo 'role'
+    const formGroup = control.parent;
+    let minAge = 18; // Default (Admin, Teacher, etc.)
+
+    if (formGroup) {
+      const roleControl = formGroup.get('role');
+      const role = roleControl ? roleControl.value : '';
+      
+      // Regla de negocio: Estudiante min 5 años, los demás min 18
+      if (role === 'student') {
+        minAge = 5;
+      }
+    }
+
+    if (age < minAge) {
+      return { underage: { min: minAge, actual: age } };
+    }
+
+    return null;
   }
 }

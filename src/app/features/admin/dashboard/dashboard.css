@@ -14,6 +14,9 @@
   --grid-gap: 2.5rem; 
   --card-radius: 16px;
 
+  /* HERO BG (Color Sólido Light) */
+  --hero-bg: var(--brand-green);
+
   /* Colores Base de Stat Cards (Light) */
   --stat-blue: #3a7afe;
   --stat-green: var(--brand-green);
@@ -38,6 +41,9 @@
   
   --text-main: var(--text-dark);
   --text-muted-local: var(--muted-dark);
+  
+  /* HERO BG (Color Sólido Dark - Verde elegante) */
+  --hero-bg: #114e3e; 
   
   /* Colores Stat Cards (Dark Mode) */
   --stat-blue: #1e4b9e;
@@ -107,13 +113,14 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================ */
-/* 4. HERO HEADER                               */
+/* 4. HERO HEADER (Sólido Consistente)          */
 /* ============================================ */
 .dashboard-hero {
-  background: linear-gradient(135deg, var(--brand-green) 0%, #146c38 100%);
+  background-color: var(--hero-bg); /* Uso de variable sólida */
   min-height: 160px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   margin-bottom: 3rem;
+  transition: background-color 0.3s ease;
 }
 
 .dashboard-hero h1,

@@ -7,7 +7,9 @@ import { SharedModule } from './shared/shared-module';
 import { TeacherNavbar } from './shared/teacher-navbar/teacher-navbar';
 import { AdminNavbar } from './shared/admin-navbar/admin-navbar';
 import { Navbar } from './shared/navbar/navbar';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { tokenInterceptor } from './core/interceptors/token-interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,10 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    provideZonelessChangeDetection(),
+    provideHttpClient(
+      withInterceptors([tokenInterceptor])
+    )
   ],
   bootstrap: [App]
 })

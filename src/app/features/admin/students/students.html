@@ -1,0 +1,232 @@
+<div class="students-container">
+
+    <!-- ============================ -->
+    <!-- HERO -->
+    <!-- ============================ -->
+    <div class="students-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Gestión de Estudiantes</h1>
+            <p class="hero-subtitle text-white-50">
+                Consulta, filtra y administra todos los perfiles de estudiantes
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================ -->
+    <!-- CONTENT -->
+    <!-- ============================ -->
+    <div class="container container-xl content-padding">
+
+        <!-- HEADER + TOTAL -->
+        <div class="mb-4 mt-3 d-flex align-items-center justify-content-between">
+            <div>
+                <h2 class="fw-bold section-title mb-1">Listado General</h2>
+                <p class="section-desc mb-0">
+                    Base de datos completa de estudiantes registrados
+                </p>
+            </div>
+
+            <div class="d-none d-md-block">
+                <span class="badge bg-light text-dark border shadow-sm px-3 py-2 rounded-pill">
+                    Total: {{ students.length }}
+                </span>
+            </div>
+        </div>
+
+        <!-- ============================ -->
+        <!-- FILTERS PANEL -->
+        <!-- ============================ -->
+        <div class="filters-panel mb-4">
+            <div class="row g-3">
+
+                <!-- ACADEMY -->
+                <div class="col-md-3">
+                    <label class="form-label">Academia</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <select class="form-select custom-control"
+                                [(ngModel)]="filters.academy"
+                                (change)="loadStudents()">
+                            <option value="">Todas</option>
+                            <option *ngFor="let a of academyOptions" [value]="a">
+                                {{ a }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ACADEMIC LEVEL -->
+                <div class="col-md-3">
+                    <label class="form-label">Nivel académico</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-mortarboard-fill"></i>
+                        </div>
+                        <select class="form-select custom-control"
+                                [(ngModel)]="filters.academic_level"
+                                (change)="loadStudents()">
+                            <option value="">Todos</option>
+                            <option *ngFor="let lvl of academicLevels" [value]="lvl">
+                                {{ lvl }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- SEARCH -->
+                <div class="col-md-4">
+                    <label class="form-label">Buscar estudiante</label>
+                    <div class="custom-input-group">
+                        <div class="input-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <input type="text"
+                               class="form-control custom-control"
+                               placeholder="Nombre o biografía..."
+                               [(ngModel)]="filters.search"
+                               (keyup)="debouncedLoad()" />
+                    </div>
+                </div>
+
+                <!-- CLEAR -->
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-outline-secondary w-100 rounded-pill py-2 fw-bold"
+                            (click)="resetFilters()">
+                        <i class="bi bi-x-circle me-1"></i> Limpiar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================ -->
+        <!-- TABLE -->
+        <!-- ============================ -->
+        <div class="table-panel">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="ps-4">#</th>
+                            <th scope="col">Estudiante</th>
+                            <th scope="col">Academia</th>
+                            <th scope="col">Nivel académico</th>
+                            <th scope="col">Biografía</th>
+                            <th scope="col">Registro</th>
+                            <th scope="col" class="text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- ROWS -->
+                        <tr *ngFor="let s of students; let i = index">
+                            <td class="ps-4 text-muted fw-bold">
+                                {{ (page - 1) * limit + (i + 1) }}
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-avatar-small me-3">
+                                        {{ s.user.first_name.charAt(0) }}
+                                    </div>
+                                    <div>
+                                        <span class="fw-bold text-main">
+                                            {{ s.user.first_name }} {{ s.user.last_name }}
+                                        </span>
+                                        <div class="small text-muted-local">
+                                            ID: {{ s.user_id }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="text-capitalize">
+                                <span *ngIf="s.academy; else noAcademy">
+                                    {{ s.academy }}
+                                </span>
+                                <ng-template #noAcademy>
+                                    <span class="text-muted small">Sin especificar</span>
+                                </ng-template>
+                            </td>
+
+                            <td class="text-capitalize">
+                                <span *ngIf="s.academic_level; else noLevel">
+                                    {{ s.academic_level }}
+                                </span>
+                                <ng-template #noLevel>
+                                    <span class="text-muted small">Sin especificar</span>
+                                </ng-template>
+                            </td>
+
+                            <td>
+                                <div class="small text-muted-local">
+                                    {{ s.bio ? (s.bio | slice:0:50) + '...' : 'Sin biografía' }}
+                                </div>
+                            </td>
+
+                            <td class="text-muted small">
+                                <i class="bi bi-calendar3 me-1"></i>
+                                {{ s.created_at | date: 'mediumDate' }}
+                            </td>
+
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+
+                                    <button class="btn btn-sm btn-icon-only btn-outline-primary"
+                                            title="Ver detalles"
+                                            (click)="goToDetail(s.id)">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-icon-only btn-outline-warning"
+                                            title="Editar estudiante"
+                                            (click)="goToEdit(s.id)">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- EMPTY STATE -->
+                        <tr *ngIf="students.length === 0">
+                            <td colspan="7" class="text-center py-5">
+                                <div class="d-flex flex-column align-items-center opacity-50">
+                                    <i class="bi bi-inbox display-4 mb-3"></i>
+                                    <h5>No se encontraron resultados</h5>
+                                    <p class="small">Intenta cambiar los filtros de búsqueda</p>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================ -->
+        <!-- PAGINATION -->
+        <!-- ============================ -->
+        <div class="pagination-wrapper mt-4">
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3"
+                    [disabled]="page === 1"
+                    (click)="changePage(page - 1)">
+                <i class="bi bi-chevron-left me-1"></i> Anterior
+            </button>
+
+            <span class="mx-3 text-muted small fw-bold">
+                Página {{ page }}
+            </span>
+
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3"
+                    [disabled]="students.length < limit"
+                    (click)="changePage(page + 1)">
+                Siguiente <i class="bi bi-chevron-right ms-1"></i>
+            </button>
+        </div>
+
+    </div>
+</div>

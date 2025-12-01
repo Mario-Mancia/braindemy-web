@@ -13,6 +13,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserDetail } from './user-detail/user-detail';
 import { UserEdit } from './user-edit/user-edit';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CourseEnrollments } from './course-enrollments/course-enrollments';
+import { CourseReviews } from './course-reviews/course-reviews';
+import { Subscriptions } from './subscriptions/subscriptions';
+import { TeacherSubscriptions } from './teacher-subscriptions/teacher-subscriptions';
+import { Teachers } from './teachers/teachers';
+import { Students } from './students/students';
 
 @NgModule({
   declarations: [
@@ -24,7 +30,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     Notifications,
     Profile,
     UserDetail,
-    UserEdit
+    UserEdit,
+    CourseEnrollments,
+    CourseReviews,
+    Subscriptions,
+    TeacherSubscriptions,
+    Teachers,
+    Students
   ],
   imports: [
     CommonModule,

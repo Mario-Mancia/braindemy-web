@@ -10,12 +10,6 @@
   --text-muted-local: var(--muted-light);
   --text-inverse: #ffffff;
 
-  --input-bg: #ffffff;
-  --input-border: #dee2e6;
-  --input-focus-border: var(--brand-green);
-  --input-icon-color: #adb5bd;
-  --separator-color: #e9ecef;
-
   --table-head-bg: #f8f9fa;
   --table-hover-bg: #f8f9fa;
   --table-border-color: rgba(0, 0, 0, 0.05);
@@ -33,11 +27,6 @@
   --text-main: var(--text-dark);
   --text-muted-local: var(--muted-dark);
 
-  --input-bg: #2f3542;
-  --input-border: #444;
-  --input-icon-color: #888;
-  --separator-color: #4a4a4a;
-
   --table-head-bg: #2f3035;
   --table-hover-bg: rgba(255,255,255,0.03);
   --table-border-color: rgba(255,255,255,0.08);
@@ -46,7 +35,7 @@
 }
 
 /* ======================================================== */
-/* 2. HERO (Pagos)                                          */
+/* 2. HERO                                                  */
 /* ======================================================== */
 .users-hero {
   background-color: var(--hero-bg);
@@ -65,10 +54,8 @@
 }
 
 /* ======================================================== */
-/* 3. PANELES (UNI-style)                                   */
+/* 3. SECCIONES Y PANELES                                   */
 /* ======================================================== */
-.panel,
-.filters-panel,
 .table-panel {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-panel);
@@ -89,41 +76,7 @@
 }
 
 /* ======================================================== */
-/* 4. INPUTS UNI-style                                      */
-/* ======================================================== */
-.custom-input-group {
-  position: relative;
-}
-
-.custom-input-group .input-icon {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  transform: translateY(-50%);
-  color: var(--input-icon-color);
-  pointer-events: none;
-}
-
-input,
-select {
-  background-color: var(--input-bg);
-  border: 1px solid var(--input-border);
-  padding: 10px 12px 10px 40px;
-  border-radius: 10px !important;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  width: 100%;
-  transition: border-color 0.2s ease;
-}
-
-input:focus,
-select:focus {
-  border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px rgba(26,188,156,0.15);
-}
-
-/* ======================================================== */
-/* 5. TABLA AVANZADA                                        */
+/* 4. TABLA                                                 */
 /* ======================================================== */
 .table {
   width: 100%;
@@ -151,40 +104,17 @@ select:focus {
   border-bottom: 1px solid var(--table-border-color);
 }
 
-/* ======================================================== */
-/* 6. BADGES — Estado de pagos                             */
-/* ======================================================== */
-.badge {
-  padding: 6px 12px;
-  border-radius: 50px;
-  font-size: 0.75rem;
+/* Ajustes visuales específicos para suscripciones */
+.table tbody td .text-main {
   font-weight: 600;
-  text-transform: capitalize;
 }
 
-/* Status personalizados */
-.badge.status-pending {
-  background: rgba(241, 196, 15, 0.2);
-  color: #f1c40f;
+.table tbody td .bi {
+  opacity: 0.6;
 }
-
-.badge.status-completed {
-  background: rgba(46, 204, 113, 0.2);
-  color: #2ecc71;
-}
-
-.badge.status-failed {
-  background: rgba(231, 76, 60, 0.2);
-  color: #e74c3c;
-}
-
-/* Dark mode tuning */
-:host-context([data-bs-theme="dark"]) .badge.status-pending { color: #ffd35c; }
-:host-context([data-bs-theme="dark"]) .badge.status-completed { color: #6aff9c; }
-:host-context([data-bs-theme="dark"]) .badge.status-failed { color: #ff6b6b; }
 
 /* ======================================================== */
-/* 7. BOTONES (acciones)                                   */
+/* 5. BOTONES (acciones)                                    */
 /* ======================================================== */
 .btn-icon-only {
   width: 36px;
@@ -197,28 +127,17 @@ select:focus {
 }
 
 /* ======================================================== */
-/* 8. PAGINACIÓN                                            */
+/* 6. ESTADO VACÍO                                          */
 /* ======================================================== */
-.pagination-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
-
-.pagination-wrapper button {
-  border-radius: 50px !important;
+.table tbody tr td .opacity-50 i {
+  opacity: 0.7 !important;
 }
 
 /* ======================================================== */
-/* 9. RESPONSIVE                                            */
+/* 7. RESPONSIVE                                            */
 /* ======================================================== */
 @media (max-width: 768px) {
-  .filters-panel {
+  .table-panel {
     padding: 1rem;
-  }
-
-  input,
-  select {
-    padding-left: 38px !important;
   }
 }

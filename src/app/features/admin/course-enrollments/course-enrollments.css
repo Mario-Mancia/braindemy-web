@@ -1,10 +1,10 @@
-/* ======================================================== */
-/* 1. VARIABLES LOCALES                                     */
-/* ======================================================== */
+/* ============================================ */
+/* 1. VARIABLES LOCALES (Igual que courses.css) */
+/* ============================================ */
 :host {
   --bg-page: var(--surface-light);
   --bg-panel: #ffffff;
-  --border-panel: rgba(0, 0, 0, 0.08);
+  --border-panel: rgba(0,0,0,0.08);
 
   --text-main: var(--text-light);
   --text-muted-local: var(--muted-light);
@@ -18,7 +18,7 @@
 
   --table-head-bg: #f8f9fa;
   --table-hover-bg: #f8f9fa;
-  --table-border-color: rgba(0, 0, 0, 0.05);
+  --table-border-color: rgba(0,0,0,0.05);
 
   --hero-bg: var(--brand-green);
 
@@ -28,7 +28,7 @@
 :host-context([data-bs-theme="dark"]) {
   --bg-page: var(--surface-dark);
   --bg-panel: #252525;
-  --border-panel: rgba(255, 255, 255, 0.08);
+  --border-panel: rgba(255,255,255,0.08);
 
   --text-main: var(--text-dark);
   --text-muted-local: var(--muted-dark);
@@ -45,28 +45,36 @@
   --hero-bg: #114e3e;
 }
 
-/* ======================================================== */
-/* 2. HERO (Pagos)                                          */
-/* ======================================================== */
-.users-hero {
+/* ============================================ */
+/* 2. HERO (coherente con courses.css)          */
+/* ============================================ */
+.courses-hero,
+.users-hero,
+.enrollments-hero {
   background-color: var(--hero-bg);
   min-height: 160px;
   padding: 1.8rem 1.4rem;
   border-radius: 20px;
   margin-bottom: 2rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   color: var(--text-inverse);
 }
 
-.hero-subtitle {
+.enrollments-hero h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+.enrollments-hero p {
+  margin-top: 4px;
   opacity: 0.9;
 }
 
-/* ======================================================== */
-/* 3. PANELES (UNI-style)                                   */
-/* ======================================================== */
+/* ============================================ */
+/* 3. PANELES (igual a courses.css)             */
+/* ============================================ */
 .panel,
 .filters-panel,
 .table-panel {
@@ -82,15 +90,14 @@
   color: var(--text-main);
   font-size: 1.25rem;
 }
-
 .section-desc {
   color: var(--text-muted-local);
   font-size: 0.9rem;
 }
 
-/* ======================================================== */
-/* 4. INPUTS UNI-style                                      */
-/* ======================================================== */
+/* ============================================ */
+/* 4. INPUTS UNI-style (igual a courses.css)    */
+/* ============================================ */
 .custom-input-group {
   position: relative;
 }
@@ -102,13 +109,18 @@
   transform: translateY(-50%);
   color: var(--input-icon-color);
   pointer-events: none;
+  font-size: 1rem;
+}
+
+.custom-control {
+  padding-left: 2.2rem !important;
 }
 
 input,
 select {
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
-  padding: 10px 12px 10px 40px;
+  padding: 10px 12px;
   border-radius: 10px !important;
   font-size: 0.95rem;
   color: var(--text-main);
@@ -122,9 +134,9 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(26,188,156,0.15);
 }
 
-/* ======================================================== */
-/* 5. TABLA AVANZADA                                        */
-/* ======================================================== */
+/* ============================================ */
+/* 5. TABLA AVANZADA (igual a courses.css)      */
+/* ============================================ */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -151,9 +163,9 @@ select:focus {
   border-bottom: 1px solid var(--table-border-color);
 }
 
-/* ======================================================== */
-/* 6. BADGES — Estado de pagos                             */
-/* ======================================================== */
+/* ============================================ */
+/* 6. BADGES (idéntico estilo a users/courses)  */
+/* ============================================ */
 .badge {
   padding: 6px 12px;
   border-radius: 50px;
@@ -162,43 +174,45 @@ select:focus {
   text-transform: capitalize;
 }
 
-/* Status personalizados */
-.badge.status-pending {
-  background: rgba(241, 196, 15, 0.2);
-  color: #f1c40f;
+.badge.active {
+  background: rgba(40,167,69,0.15);
+  color: #28a745;
 }
 
-.badge.status-completed {
-  background: rgba(46, 204, 113, 0.2);
-  color: #2ecc71;
+.badge.completed {
+  background: rgba(52,152,219,0.15);
+  color: #3498db;
 }
 
-.badge.status-failed {
-  background: rgba(231, 76, 60, 0.2);
+.badge.cancelled {
+  background: rgba(231,76,60,0.15);
   color: #e74c3c;
 }
 
-/* Dark mode tuning */
-:host-context([data-bs-theme="dark"]) .badge.status-pending { color: #ffd35c; }
-:host-context([data-bs-theme="dark"]) .badge.status-completed { color: #6aff9c; }
-:host-context([data-bs-theme="dark"]) .badge.status-failed { color: #ff6b6b; }
+:host-context([data-bs-theme="dark"]) .badge.active { color: #4cd16e; }
+:host-context([data-bs-theme="dark"]) .badge.completed { color: #5dade2; }
+:host-context([data-bs-theme="dark"]) .badge.cancelled { color: #ff6b6b; }
 
-/* ======================================================== */
-/* 7. BOTONES (acciones)                                   */
-/* ======================================================== */
+/* ============================================ */
+/* 7. BOTONES (detalles / acciones)             */
+/* ============================================ */
 .btn-icon-only {
   width: 36px;
   height: 36px;
   padding: 0;
-  border-radius: 10px !important;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ======================================================== */
-/* 8. PAGINACIÓN                                            */
-/* ======================================================== */
+.btn-outline-primary {
+  border-radius: 10px !important;
+}
+
+/* ============================================ */
+/* 8. PAGINACIÓN (igual que courses.css)        */
+/* ============================================ */
 .pagination-wrapper {
   display: flex;
   justify-content: center;
@@ -209,16 +223,11 @@ select:focus {
   border-radius: 50px !important;
 }
 
-/* ======================================================== */
-/* 9. RESPONSIVE                                            */
-/* ======================================================== */
+/* ============================================ */
+/* 9. RESPONSIVE                                */
+/* ============================================ */
 @media (max-width: 768px) {
   .filters-panel {
     padding: 1rem;
-  }
-
-  input,
-  select {
-    padding-left: 38px !important;
   }
 }

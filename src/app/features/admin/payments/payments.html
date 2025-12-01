@@ -1,1 +1,177 @@
-<p>payments works!</p>
+<div class="payments-container">
+
+  <!-- HERO -->
+  <div class="payments-hero d-flex align-items-center">
+    <div class="container container-xl py-5">
+      <h1 class="fw-bold mb-2 text-white">Pagos Registrados</h1>
+      <p class="hero-subtitle text-white-50">
+        Consulta y administra todas las transacciones del sistema
+      </p>
+    </div>
+  </div>
+
+  <div class="container container-xl content-padding">
+
+    <!-- ENCABEZADO -->
+    <div class="mb-4 mt-3 d-flex align-items-center justify-content-between">
+      <div>
+        <h2 class="fw-bold section-title mb-1">Listado General</h2>
+        <p class="section-desc mb-0">Base de datos completa de pagos registrados</p>
+      </div>
+
+      <div class="d-none d-md-block">
+        <span class="badge bg-light text-dark border shadow-sm px-3 py-2 rounded-pill">
+          Total: {{ payments.length }}
+        </span>
+      </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filters-panel mb-4">
+      <div class="row g-3">
+
+        <!-- User ID -->
+        <div class="col-md-3">
+          <label class="form-label">ID del Usuario</label>
+          <div class="custom-input-group">
+            <div class="input-icon"><i class="bi bi-person-badge"></i></div>
+            <input type="text"
+                   class="form-control custom-control"
+                   placeholder="user_id"
+                   [(ngModel)]="filters.user_id"
+                   (keyup)="debouncedLoad()" />
+          </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="col-md-2">
+          <label class="form-label">Estado</label>
+          <div class="custom-input-group">
+            <div class="input-icon"><i class="bi bi-flag"></i></div>
+            <select class="form-select custom-control"
+                    [(ngModel)]="filters.status"
+                    (change)="loadPayments()">
+              <option value="">Todos</option>
+              <option value="pending">Pendiente</option>
+              <option value="completed">Completado</option>
+              <option value="failed">Fallido</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Course ID -->
+        <div class="col-md-3">
+          <label class="form-label">ID del Curso</label>
+          <div class="custom-input-group">
+            <div class="input-icon"><i class="bi bi-journal-bookmark"></i></div>
+            <input type="text"
+                   class="form-control custom-control"
+                   placeholder="course_id"
+                   [(ngModel)]="filters.course_id"
+                   (keyup)="debouncedLoad()" />
+          </div>
+        </div>
+
+        <!-- Fecha Única -->
+        <div class="col-md-2">
+          <label class="form-label">Fecha del Pago</label>
+          <div class="custom-input-group">
+            <div class="input-icon"><i class="bi bi-calendar-event"></i></div>
+            <input type="date"
+                   class="form-control custom-control"
+                   [(ngModel)]="filters.date"
+                   (change)="loadPayments()" />
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn btn-outline-secondary mt-3 rounded-pill px-4"
+              (click)="resetFilters()">
+        <i class="bi bi-arrow-counterclockwise me-1"></i>
+        Limpiar filtros
+      </button>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-panel">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+          <thead>
+            <tr>
+              <th class="ps-4">#</th>
+              <th>Usuario</th>
+              <th>Monto</th>
+              <th>Tipo</th>
+              <th>Referencia</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+              <th class="text-end pe-4">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let p of payments; let i = index">
+              <td class="ps-4 text-muted fw-bold">{{ i + 1 }}</td>
+
+              <td class="fw-bold text-main">
+                <i class="bi bi-person-fill text-muted small me-1"></i>
+                {{ p.user?.name || '—' }}
+              </td>
+
+              <td>
+                <i class="bi bi-currency-dollar text-muted small me-1"></i>
+                {{ p.amount }}
+              </td>
+
+              <td>
+                <span class="badge bg-secondary text-light text-uppercase">
+                  {{ p.type }}
+                </span>
+              </td>
+
+              <td class="text-muted small">{{ p.reference || '—' }}</td>
+
+              <td>
+                <span class="badge"
+                      [ngClass]="{
+                        'bg-warning text-dark': p.status === 'pending',
+                        'bg-success': p.status === 'completed',
+                        'bg-danger': p.status === 'failed'
+                      }">
+                  {{ p.status }}
+                </span>
+              </td>
+
+              <td>
+                <i class="bi bi-calendar-event text-muted small me-1"></i>
+                {{ p.created_at | date:'mediumDate' }}
+              </td>
+
+              <td class="text-end pe-4">
+                <button class="btn btn-sm btn-icon-only btn-outline-primary"
+                        (click)="goToDetail(p.id)"
+                        title="Ver detalles">
+                  <i class="bi bi-eye-fill"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="payments.length === 0">
+              <td colspan="8" class="text-center py-5">
+                <div class="d-flex flex-column align-items-center opacity-50">
+                  <i class="bi bi-inbox display-4 mb-3"></i>
+                  <h5>No se encontraron resultados</h5>
+                  <p class="small">Intenta cambiar los filtros</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

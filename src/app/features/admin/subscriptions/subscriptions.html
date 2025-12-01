@@ -1,0 +1,112 @@
+<div class="users-container">
+
+  <!-- HERO -->
+  <div class="users-hero d-flex align-items-center">
+    <div class="container container-xl py-5">
+      <h1 class="fw-bold mb-2 text-white">Modelos de Suscripción</h1>
+      <p class="hero-subtitle text-white-50">
+        Administración de los planes disponibles en la plataforma
+      </p>
+    </div>
+  </div>
+
+  <div class="container container-xl content-padding">
+
+    <!-- ENCABEZADO -->
+    <div class="mb-4 mt-3 d-flex align-items-center justify-content-between">
+      <div>
+        <h2 class="fw-bold section-title mb-1">Listado General</h2>
+        <p class="section-desc mb-0">
+          Modelos de suscripción configurados en el sistema
+        </p>
+      </div>
+
+      <div class="d-none d-md-block">
+        <span class="badge bg-light text-dark border shadow-sm px-3 py-2 rounded-pill">
+          Total: {{ subscriptions.length }}
+        </span>
+      </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-panel">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+          <thead>
+            <tr>
+              <th class="ps-4">#</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Cursos Máx.</th>
+              <th>Estudiantes por Curso</th>
+              <th class="text-end pe-4">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let s of subscriptions; let i = index">
+
+              <!-- Index -->
+              <td class="ps-4 text-muted fw-bold">
+                {{ i + 1 }}
+              </td>
+
+              <!-- Nombre -->
+              <td class="fw-bold text-main">
+                <i class="bi bi-bookmark-star text-muted small me-1"></i>
+                {{ s.name }}
+              </td>
+
+              <!-- Precio -->
+              <td>
+                <i class="bi bi-currency-dollar text-muted small me-1"></i>
+                {{ s.price }}
+              </td>
+
+              <!-- Max Courses -->
+              <td class="text-muted">
+                {{ s.max_courses }}
+              </td>
+
+              <!-- Students per Course -->
+              <td class="text-muted">
+                {{ s.max_students_per_course }}
+              </td>
+
+              <!-- Acciones -->
+              <td class="text-end pe-4">
+                <div class="d-flex justify-content-end gap-2">
+                  <button
+                    class="btn btn-sm btn-icon-only btn-outline-primary"
+                    title="Ver detalles"
+                    (click)="goToDetail(s.id)"
+                  >
+                    <i class="bi bi-eye-fill"></i>
+                  </button>
+                </div>
+              </td>
+
+            </tr>
+
+            <!-- SIN RESULTADOS -->
+            <tr *ngIf="subscriptions.length === 0">
+              <td colspan="6" class="text-center py-5">
+                <div class="d-flex flex-column align-items-center opacity-50">
+                  <i class="bi bi-inbox display-4 mb-3"></i>
+                  <h5>No hay modelos de suscripción</h5>
+                  <p class="small">Agrega uno nuevo para comenzar</p>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -46,7 +46,7 @@
 }
 
 /* ======================================================== */
-/* 2. HERO (Pagos)                                          */
+/* 2. HERO (Suscripciones)                                  */
 /* ======================================================== */
 .users-hero {
   background-color: var(--hero-bg);
@@ -62,6 +62,11 @@
 
 .hero-subtitle {
   opacity: 0.9;
+}
+
+/* Container paddings */
+.content-padding {
+  padding-bottom: 2rem;
 }
 
 /* ======================================================== */
@@ -151,8 +156,12 @@ select:focus {
   border-bottom: 1px solid var(--table-border-color);
 }
 
+.text-main {
+  color: var(--text-main);
+}
+
 /* ======================================================== */
-/* 6. BADGES — Estado de pagos                             */
+/* 6. BADGES — Estado de suscripciones                      */
 /* ======================================================== */
 .badge {
   padding: 6px 12px;
@@ -162,26 +171,26 @@ select:focus {
   text-transform: capitalize;
 }
 
-/* Status personalizados */
-.badge.status-pending {
-  background: rgba(241, 196, 15, 0.2);
-  color: #f1c40f;
+/* Status */
+.badge.bg-success {
+  background: rgba(46, 204, 113, 0.2) !important;
+  color: #2ecc71 !important;
 }
 
-.badge.status-completed {
-  background: rgba(46, 204, 113, 0.2);
-  color: #2ecc71;
+.badge.bg-danger {
+  background: rgba(231, 76, 60, 0.2) !important;
+  color: #e74c3c !important;
 }
 
-.badge.status-failed {
-  background: rgba(231, 76, 60, 0.2);
-  color: #e74c3c;
+.badge.bg-secondary {
+  background: rgba(149, 165, 166, 0.2) !important;
+  color: #95a5a6 !important;
 }
 
 /* Dark mode tuning */
-:host-context([data-bs-theme="dark"]) .badge.status-pending { color: #ffd35c; }
-:host-context([data-bs-theme="dark"]) .badge.status-completed { color: #6aff9c; }
-:host-context([data-bs-theme="dark"]) .badge.status-failed { color: #ff6b6b; }
+:host-context([data-bs-theme="dark"]) .badge.bg-success { color: #6aff9c !important; }
+:host-context([data-bs-theme="dark"]) .badge.bg-danger { color: #ff6b6b !important; }
+:host-context([data-bs-theme="dark"]) .badge.bg-secondary { color: #d5d5d5 !important; }
 
 /* ======================================================== */
 /* 7. BOTONES (acciones)                                   */
@@ -220,5 +229,10 @@ select:focus {
   input,
   select {
     padding-left: 38px !important;
+  }
+
+  .users-hero {
+    padding: 1.4rem;
+    text-align: center;
   }
 }

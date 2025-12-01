@@ -1,16 +1,17 @@
 <div class="register-page d-flex align-items-center justify-content-center min-vh-100 py-5">
   <div class="container">
     <div class="row justify-content-center">
-      
+
       <!-- Usamos col-xl-10 para dar un poco más de anchura que al login, ya que hay más datos -->
       <div class="col-lg-11 col-xl-10">
-        
+
         <div class="card register-card border-0 shadow-lg overflow-hidden">
           <div class="row g-0">
 
             <!-- Panel Izquierdo (Branding - Info) -->
             <!-- En desktop ocupa 5 columnas, dejando 7 para el formulario -->
-            <div class="col-lg-5 left-panel d-none d-lg-flex flex-column justify-content-center align-items-center text-white p-5 text-center position-relative">
+            <div
+              class="col-lg-5 left-panel d-none d-lg-flex flex-column justify-content-center align-items-center text-white p-5 text-center position-relative">
               <div class="panel-overlay"></div>
               <div class="position-relative z-2 content-wrapper">
                 <i class="bi bi-rocket-takeoff-fill display-1 mb-3 opacity-50"></i>
@@ -18,7 +19,7 @@
                 <p class="mt-3 fs-5 opacity-75">
                   Gestiona clases, alumnos y contenidos desde una plataforma moderna y rápida.
                 </p>
-                
+
                 <div class="mt-5">
                   <p class="mb-2 fs-6 opacity-75">¿Ya tienes una cuenta?</p>
                   <a routerLink="/auth/login" class="btn btn-outline-light rounded-pill px-4 fw-bold">
@@ -30,7 +31,7 @@
 
             <!-- Panel Derecho (Formulario) -->
             <div class="col-lg-7 right-panel p-4 p-md-5">
-              
+
               <div class="d-flex align-items-center mb-4">
                 <h2 class="fw-bold mb-0 text-main">Crear cuenta</h2>
               </div>
@@ -45,12 +46,8 @@
                       <div class="input-icon">
                         <i class="bi bi-person"></i>
                       </div>
-                      <input
-                        type="text"
-                        class="form-control custom-control"
-                        formControlName="first_name"
-                        placeholder="Tu nombre"
-                      />
+                      <input type="text" class="form-control custom-control" formControlName="first_name"
+                        placeholder="Tu nombre" />
                     </div>
                     <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('first_name')">
                       El nombre es obligatorio.
@@ -63,12 +60,8 @@
                       <div class="input-icon">
                         <i class="bi bi-person-badge"></i>
                       </div>
-                      <input
-                        type="text"
-                        class="form-control custom-control"
-                        formControlName="last_name"
-                        placeholder="Tu apellido"
-                      />
+                      <input type="text" class="form-control custom-control" formControlName="last_name"
+                        placeholder="Tu apellido" />
                     </div>
                     <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('last_name')">
                       El apellido es obligatorio.
@@ -83,12 +76,8 @@
                     <div class="input-icon">
                       <i class="bi bi-envelope"></i>
                     </div>
-                    <input
-                      type="email"
-                      class="form-control custom-control"
-                      formControlName="email"
-                      placeholder="correo@example.com"
-                    />
+                    <input type="email" class="form-control custom-control" formControlName="email"
+                      placeholder="correo@example.com" />
                   </div>
                   <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('email')">
                     Ingresa un correo válido.
@@ -99,15 +88,12 @@
                 <div class="row g-3 mb-3">
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-muted-local">Fecha de nacimiento</label>
-                    <div class="custom-input-group" [class.is-invalid-group]="showError('birthdate') || form.errors?.['tooYoung']">
+                    <div class="custom-input-group"
+                      [class.is-invalid-group]="showError('birthdate') || form.errors?.['tooYoung']">
                       <div class="input-icon">
                         <i class="bi bi-calendar"></i>
                       </div>
-                      <input
-                        type="date"
-                        class="form-control custom-control"
-                        formControlName="birthdate"
-                      />
+                      <input type="date" class="form-control custom-control" formControlName="birthdate" />
                     </div>
                     <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('birthdate')">
                       Campo obligatorio.
@@ -134,54 +120,74 @@
 
                 <!-- Fila: Contraseñas -->
                 <div class="row g-3 mb-4">
+
+                  <!-- PASSWORD -->
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-muted-local">Contraseña</label>
+
                     <div class="custom-input-group" [class.is-invalid-group]="showError('password')">
                       <div class="input-icon">
                         <i class="bi bi-lock"></i>
                       </div>
-                      <input
-                        [type]="showPassword ? 'text' : 'password'"
-                        class="form-control custom-control"
-                        formControlName="password"
-                        placeholder="••••••••"
-                      />
+
+                      <input [type]="showPassword ? 'text' : 'password'" class="form-control custom-control"
+                        formControlName="password" placeholder="••••••••" />
+
                       <div class="password-toggle" (click)="togglePassword()">
                         <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                       </div>
                     </div>
+
+                    <!-- FEEDBACK PROGRESIVO -->
                     <div class="invalid-feedback d-block mt-1 small" *ngIf="showError('password')">
-                      Mínimo 6 caracteres.
+
+                      <!-- MENSAJE 1: menos de 8 caracteres -->
+                      <span *ngIf="form.get('password')?.errors?.['minLength']">
+                        La contraseña debe tener al menos 8 caracteres.
+                      </span>
+
+                      <!-- MENSAJE 2: ya tiene 8 pero falta mayúscula o especial -->
+                      <span *ngIf="form.get('password')?.errors?.['weakPassword']">
+                        Debe incluir:
+                        <span *ngIf="form.get('password')?.errors?.['weakPassword']?.['missingUppercase']">
+                          al menos mayúscula,
+                        </span>
+                        <span *ngIf="form.get('password')?.errors?.['weakPassword']?.['missingSpecial']">
+                          al menos un carácter especial.
+                        </span>
+                      </span>
+
                     </div>
                   </div>
 
+                  <!-- CONFIRM PASSWORD -->
                   <div class="col-md-6">
                     <label class="form-label fw-semibold small text-muted-local">Confirmar</label>
+
                     <div class="custom-input-group" [class.is-invalid-group]="form.errors?.['notMatching']">
                       <div class="input-icon">
                         <i class="bi bi-lock-fill"></i>
                       </div>
-                      <input
-                        [type]="showConfirmPassword ? 'text' : 'password'"
-                        class="form-control custom-control"
-                        formControlName="confirmPassword"
-                        placeholder="Repite contraseña"
-                      />
+
+                      <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control custom-control"
+                        formControlName="confirmPassword" placeholder="Repite contraseña" />
+
                       <div class="password-toggle" (click)="toggleConfirmPassword()">
                         <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                       </div>
                     </div>
+
                     <div class="invalid-feedback d-block mt-1 small" *ngIf="form.errors?.['notMatching']">
                       No coinciden.
                     </div>
                   </div>
+
                 </div>
 
+
                 <!-- Botón -->
-                <button
-                  class="btn btn-brand w-100 py-3 fw-bold rounded-pill shadow-sm register-btn-anim"
-                  [disabled]="form.invalid || loading"
-                >
+                <button class="btn btn-brand w-100 py-3 fw-bold rounded-pill shadow-sm register-btn-anim"
+                  [disabled]="form.invalid || loading">
                   <span *ngIf="!loading">Crear cuenta</span>
                   <span *ngIf="loading" class="d-flex align-items-center justify-content-center gap-2">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -192,13 +198,14 @@
                 <!-- Link visible solo en móvil -->
                 <div class="d-lg-none text-center mt-4">
                   <p class="small text-muted-local mb-0">
-                    ¿Ya tienes cuenta? 
+                    ¿Ya tienes cuenta?
                     <a routerLink="/auth/login" class="text-brand fw-bold text-decoration-none">Inicia sesión</a>
                   </p>
                 </div>
 
                 <!-- Error general -->
-                <div *ngIf="registerError" class="alert alert-danger d-flex align-items-center mt-3 small border-0 shadow-sm">
+                <div *ngIf="registerError"
+                  class="alert alert-danger d-flex align-items-center mt-3 small border-0 shadow-sm">
                   <i class="bi bi-exclamation-triangle-fill me-2"></i>
                   <div>{{ registerError }}</div>
                 </div>
