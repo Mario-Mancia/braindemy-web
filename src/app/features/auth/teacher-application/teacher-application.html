@@ -1,0 +1,131 @@
+<div class="edit-container">
+
+    <!-- HERO -->
+    <div class="edit-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Solicitud para Docente</h1>
+            <p class="hero-subtitle text-white-50">
+                Completa tu información para aplicar al programa de instructores
+            </p>
+        </div>
+    </div>
+
+    <div class="container container-xl content-padding">
+
+
+
+        <div class="text-end mb-3">
+            <button class="btn btn-outline-danger px-3" (click)="logout()">
+                <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="text-center py-5 my-5">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status"></div>
+            <p class="mt-3 text-muted">Cargando información...</p>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="error && !loading" class="alert alert-danger text-center shadow-sm border-0 mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+        </div>
+
+        <!-- Success -->
+        <div *ngIf="success" class="alert alert-success text-center shadow-sm border-0 mb-4 fade-in">
+            <i class="bi bi-check-circle-fill me-2"></i> Solicitud enviada correctamente
+        </div>
+
+        <!-- FORM -->
+        <div *ngIf="!loading" class="edit-panel">
+
+            <form [formGroup]="appForm" (ngSubmit)="submitApplication()">
+
+                <!-- Sección: Información General -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-person-workspace"></i></div>
+                    <h4 class="section-title mb-0">Información del Aplicante</h4>
+                </div>
+
+                <div *ngIf="existingApplication && existingApplication.status === 'pending'"
+                    class="alert alert-info text-center shadow-sm border-0 mb-4 fade-in">
+                    <i class="bi bi-hourglass-split me-2"></i>
+                    Tu solicitud está en espera de revisión. No puedes editar el formulario hasta que sea revisada.
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- BIO -->
+                    <div class="col-md-12">
+                        <label class="form-label">Biografía <span class="text-muted small">(Opcional)</span></label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-journal-richtext"></i></div>
+                            <textarea class="form-control custom-control" rows="3" formControlName="bio"
+                                placeholder="Cuéntanos sobre ti, tu estilo de enseñanza o tus intereses"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- SPECIALTY -->
+                    <div class="col-md-6">
+                        <label class="form-label">Especialidad <span class="text-muted small">(Opcional)</span></label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-award"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="specialty"
+                                placeholder="Ej. Matemáticas, UX Design, Inglés avanzado">
+                        </div>
+                    </div>
+
+                    <!-- EXPERIENCE -->
+                    <div class="col-md-6">
+                        <label class="form-label">Experiencia Profesional <span
+                                class="text-muted small">(Opcional)</span></label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-briefcase"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="experience"
+                                placeholder="Ej. 3 años enseñando, 5 años en la industria...">
+                        </div>
+                    </div>
+
+                    <!-- PORTFOLIO URL -->
+                    <div class="col-md-12">
+                        <label class="form-label">
+                            URL de Portafolio <span class="text-muted small">(Opcional)</span>
+                        </label>
+                        <div class="custom-input-group" [class.border-danger]="isFieldInvalid('portfolio_url')">
+                            <div class="input-icon"><i class="bi bi-link-45deg"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="portfolio_url"
+                                placeholder="Ej. https://mi-portafolio.com">
+                        </div>
+                        <div class="text-danger small mt-1" *ngIf="isFieldInvalid('portfolio_url')">
+                            <i class="bi bi-exclamation-circle me-1"></i> La URL no es válida.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Divider -->
+                <hr class="divider my-5">
+
+                <div class="d-flex justify-content-end align-items-center gap-3 mt-5 pt-3">
+
+                    <button type="button" class="btn btn-outline-secondary px-4 rounded-pill fw-bold"
+                        (click)="goBack()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-save" [disabled]="isSubmitDisabled">
+                        <span *ngIf="saving" class="d-flex align-items-center gap-2">
+                            <div class="spinner-border spinner-border-sm" role="status"></div>
+                            Enviando...
+                        </span>
+                        <span *ngIf="!saving" class="d-flex align-items-center gap-2">
+                            <i class="bi bi-send"></i> Enviar Solicitud
+                        </span>
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

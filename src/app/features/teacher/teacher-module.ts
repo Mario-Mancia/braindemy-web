@@ -11,6 +11,8 @@ import { Upgrade } from './upgrade/upgrade';
 import { Live } from './live/live';
 import { Students } from './students/students';
 import { Profile } from './profile/profile';
+import { REACTIVE_NODE } from '@angular/core/primitives/signals';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,11 +25,12 @@ import { Profile } from './profile/profile';
     Upgrade,
     Live,
     Students,
-    Profile
+    Profile,
   ],
   imports: [
     CommonModule,
-    TeacherRoutingModule
+    TeacherRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class TeacherModule { }

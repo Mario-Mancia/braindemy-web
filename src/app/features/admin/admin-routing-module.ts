@@ -23,13 +23,15 @@ import { SubscriptionDetail } from './subscription-detail/subscription-detail';
 import { TeacherSubscriptionDetail } from './teacher-subscription-detail/teacher-subscription-detail';
 import { TeacherDetail } from './teacher-detail/teacher-detail';
 import { StudentDetail } from './student-detail/student-detail';
+import { TeacherApplications } from './teacher-applications/teacher-applications';
+import { Notifications } from './notifications/notifications';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
   { path: 'courses', component: Courses, canActivate: [authGuard] },
   { path: 'course-detail/:id', component: CourseDetail, canActivate: [authGuard] }, 
-  { path: 'notifications', component: Notification, canActivate: [authGuard] },
+  { path: 'notifications', component: Notifications, canActivate: [authGuard] },
   { path: 'payments', component: Payments, canActivate: [authGuard] },
   { path: 'payment-detail/:id', component: PaymentDetail, canActivate: [authGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
@@ -47,7 +49,8 @@ const routes: Routes = [
   { path: 'teachers', component: Teachers, canActivate: [authGuard] },
   { path: 'teacher-detail/:id', component: TeacherDetail, canActivate: [authGuard] },
   { path: 'students', component: Students, canActivate: [authGuard] },
-  { path: 'student-detail/:id', component: StudentDetail, canActivate: [authGuard] }
+  { path: 'student-detail/:id', component: StudentDetail, canActivate: [authGuard] },
+  { path: 'teacher-applications/:id', component: TeacherApplications, canActivate: [authGuard] }
 
 ];
 

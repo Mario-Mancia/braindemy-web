@@ -1,0 +1,175 @@
+/* ============================================ */
+/* 1. VARIABLES LOCALES                         */
+/* ============================================ */
+:host {
+  --bg-page: var(--surface-light);
+  --bg-panel: #ffffff;
+  --border-panel: rgba(0,0,0,0.08);
+  
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+  
+  /* Hero Colors (Sólidos) */
+  --hero-bg: var(--brand-green);
+  
+  /* Iconos y Cards */
+  --icon-bg: rgba(26, 188, 156, 0.1);
+  --icon-color: var(--brand-green);
+  --card-hover-bg: #f8f9fa;
+  
+  display: block;
+}
+
+:host-context([data-bs-theme="dark"]) {
+  --bg-page: var(--surface-dark);
+  --bg-panel: #252525;
+  --border-panel: rgba(255,255,255,0.08);
+  
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+  
+  --hero-bg: #114e3e;
+  --icon-bg: rgba(255,255,255,0.05);
+  --icon-color: #58d68d;
+  --card-hover-bg: rgba(255,255,255,0.03);
+}
+
+/* ============================================ */
+/* 2. HERO (Color Sólido)                       */
+/* ============================================ */
+.detail-hero {
+  background-color: var(--hero-bg);
+  min-height: 160px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+}
+
+/* ============================================ */
+/* 3. CONTENEDOR Y LAYOUT                       */
+/* ============================================ */
+.detail-container {
+  background-color: var(--bg-page);
+  min-height: 100vh;
+}
+
+.content-padding {
+  padding-bottom: 4rem;
+}
+
+/* Contador de cursos */
+.course-counter {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+/* ============================================ */
+/* 4. DETAIL CARDS                              */
+/* ============================================ */
+.detail-card {
+  background-color: var(--bg-panel);
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-panel);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+.detail-card:hover {
+  background-color: var(--card-hover-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Icono de curso */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  background-color: var(--icon-bg);
+  color: var(--icon-color);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* Contenido de cada card */
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.detail-content .label {
+  font-size: 0.8rem;
+  color: var(--text-muted-local);
+  margin-bottom: 2px;
+}
+
+.detail-content .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Agrupar varias propiedades del curso en línea */
+.detail-content.d-flex {
+  gap: 1.5rem;
+}
+
+/* ============================================ */
+/* 5. BOTONES                                   */
+/* ============================================ */
+.btn-edit {
+  background-color: transparent;
+  border: 2px solid var(--border-panel);
+  color: var(--text-main);
+  border-radius: 50px;
+  padding: 8px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: var(--brand-green);
+  border-color: var(--brand-green);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}
+
+.btn-success {
+  background-color: var(--brand-green);
+  color: #fff;
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 8px 24px;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #16a085;
+}
+
+/* ============================================ */
+/* 6. EMPTY STATE                               */
+/* ============================================ */
+.text-muted {
+  color: var(--text-muted-local) !important;
+}
+
+/* ============================================ */
+/* 7. ANIMACIONES                               */
+/* ============================================ */
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

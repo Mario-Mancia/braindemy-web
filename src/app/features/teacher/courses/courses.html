@@ -1,1 +1,113 @@
-<p>courses works!</p>
+<div class="detail-container">
+
+  <!-- HERO -->
+  <div class="detail-hero d-flex align-items-center">
+    <div class="container container-xl py-5">
+      <h1 class="fw-bold mb-2 text-white">Mis Cursos</h1>
+      <p class="hero-subtitle text-white-50">
+        Visualiza y gestiona los cursos a tu cargo
+      </p>
+    </div>
+  </div>
+
+  <div class="container container-xl content-padding">
+
+    <!-- Botón Crear Curso -->
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+      <div class="course-counter">
+        Cursos: {{ courses.length }} / {{ maxCourses }}
+      </div>
+      <button class="btn btn-success" (click)="createCourse()">
+        <i class="bi bi-plus-lg me-2"></i> Crear Curso
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center py-5 my-5">
+      <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+      <p class="mt-3 text-muted">Cargando cursos...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error && !loading" class="alert alert-danger text-center shadow-sm border-0">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+    </div>
+
+    <!-- LISTADO DE CURSOS -->
+    <div *ngIf="!loading && courses && courses.length > 0">
+      <div class="row g-4">
+
+        <!-- CARD POR CURSO -->
+        <div class="col-12" *ngFor="let course of courses; let i = index">
+          <div class="detail-card h-100 fade-in">
+
+            <!-- Cabecera: Título y categoría -->
+            <div class="d-flex align-items-center mb-3">
+              <div class="icon-box me-3" [style.background-color]="course.color || 'var(--icon-bg)'">
+                <i class="bi bi-journal-bookmark"></i>
+              </div>
+              <div>
+                <span class="label d-block">Curso {{ i + 1 }}</span>
+                <span class="value fw-bold">{{ course.title }}</span>
+                <small class="text-muted d-block">{{ course.category || 'Sin categoría' }}</small>
+              </div>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="detail-content mb-3">
+              <span class="label d-block">Descripción</span>
+              <span class="value text-muted">
+                {{ course.description || 'No se proporcionó descripción' }}
+              </span>
+            </div>
+
+            <div class="detail-content mb-3 d-flex flex-wrap gap-3">
+              <div>
+                <span class="label d-block">Nivel</span>
+                <span class="value">{{ course.level || 'No definido' }}</span>
+              </div>
+              <div>
+                <span class="label d-block">Duración</span>
+                <span class="value">{{ course.duration || 'No definido' }}</span>
+              </div>
+              <div>
+                <span class="label d-block">Precio</span>
+                <span class="value">{{ course.price | currency:'USD' }}</span>
+              </div>
+              <div>
+                <span class="label d-block">Máx. Estudiantes</span>
+                <span class="value">{{ course.max_students }}</span>
+              </div>
+            </div>
+
+            <!-- Fecha de creación -->
+            <div class="detail-content mb-3">
+              <span class="label d-block">Creado el</span>
+              <span class="value">{{ course.created_at | date:'mediumDate' }}</span>
+              <small class="text-muted d-block" style="font-size: .75rem;">
+                {{ course.created_at | date:'shortTime' }}
+              </small>
+            </div>
+
+            <!-- Botón de acción -->
+            <div class="mt-4 text-end">
+              <button class="btn btn-edit" (click)="goToCourseDetails(course.id)">
+                <i class="bi bi-eye-fill me-2"></i> Ver Detalles
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NO DATA -->
+    <div *ngIf="!loading && courses && courses.length === 0" 
+         class="text-center py-5 text-muted">
+      <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+      No tienes cursos creados por el momento.
+    </div>
+
+  </div>
+</div>

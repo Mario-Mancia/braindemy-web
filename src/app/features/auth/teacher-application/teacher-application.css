@@ -5,20 +5,20 @@
   --bg-page: var(--surface-light);
   --bg-panel: #ffffff;
   --border-panel: rgba(0,0,0,0.08);
-  
+
   --text-main: var(--text-light);
   --text-muted-local: var(--muted-light);
-  
+
   /* Inputs estilo Register */
   --input-bg: #ffffff;
   --input-border: #dee2e6;
   --input-focus-border: var(--brand-green);
   --input-icon-color: #adb5bd;
   --separator-color: #e9ecef;
-  
-  /* Hero Colors (Sólidos) */
+
+  /* Hero Color sólido */
   --hero-bg: var(--brand-green);
-  
+
   display: block;
 }
 
@@ -26,33 +26,37 @@
   --bg-page: var(--surface-dark);
   --bg-panel: #252525;
   --border-panel: rgba(255,255,255,0.08);
-  
+
   --text-main: var(--text-dark);
   --text-muted-local: var(--muted-dark);
-  
-  /* Inputs Dark */
+
   --input-bg: #2f3542;
   --input-border: #444;
   --input-icon-color: #888;
   --separator-color: #4a4a4a;
-  
-  /* Hero Dark (Verde más oscuro) */
-  --hero-bg: #114e3e; 
+
+  --hero-bg: #114e3e;
 }
 
 /* ============================================ */
-/* 2. HERO (Color Sólido)                       */
+/* 2. HERO                                       */
 /* ============================================ */
 .edit-hero {
   background-color: var(--hero-bg);
   min-height: 160px;
   margin-bottom: 2rem;
+  padding: 2rem 0;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
 }
 
+.hero-subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
 /* ============================================ */
-/* 3. PANEL DE EDICIÓN                          */
+/* 3. PANEL DE APLICACIÓN                        */
 /* ============================================ */
 .edit-panel {
   background-color: var(--bg-panel);
@@ -80,6 +84,7 @@
   font-size: 1.2rem;
 }
 
+/* Divider */
 .divider {
   border-color: var(--border-panel);
   opacity: 0.6;
@@ -113,7 +118,7 @@
   box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
 }
 
-/* Icono Izquierdo + Separador */
+/* Icono Izquierdo */
 .input-icon {
   display: flex;
   align-items: center;
@@ -127,7 +132,7 @@
   flex-shrink: 0;
 }
 
-/* Input real transparente */
+/* Input real */
 .custom-control {
   border: none !important;
   background-color: transparent !important;
@@ -143,32 +148,19 @@
   opacity: 0.5;
 }
 
-/* Fix para selects en dark mode */
+/* Fix selects dark mode */
 select.custom-control option {
   background-color: var(--bg-panel);
   color: var(--text-main);
 }
 
-/* Inputs deshabilitados (URL, color, etc.) */
-.custom-input-group.disabled-group {
-  background-color: rgba(0,0,0,0.04);
-  border-color: var(--border-panel);
-}
-:host-context([data-bs-theme="dark"]) .custom-input-group.disabled-group {
-  background-color: rgba(255,255,255,0.04);
+/* Textarea height & dark fix */
+textarea.custom-control {
+  resize: vertical;
 }
 
 /* ============================================ */
-/* 5. CHECKBOXES Y SWITCHES                     */
-/* ============================================ */
-.form-check-input {
-  width: 2rem;
-  height: 1.2rem;
-  cursor: pointer;
-}
-
-/* ============================================ */
-/* 6. BOTONES                                   */
+/* 5. BOTONES                                   */
 /* ============================================ */
 .btn-save {
   background-color: var(--brand-green);
@@ -193,29 +185,7 @@ select.custom-control option {
   cursor: not-allowed;
 }
 
-/* Botones outline (Agregar horario, eliminar, cancelar) */
-.btn-outline-success, .btn-outline-danger, .btn-outline-secondary {
-  border-radius: 50px;
-  font-weight: 600;
-  padding: 0.5rem 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-outline-success:hover {
-  background-color: rgba(40, 167, 69, 0.1);
-}
-
-.btn-outline-danger:hover {
-  background-color: rgba(220, 53, 69, 0.1);
-}
-
-.btn-outline-secondary:hover {
-  background-color: rgba(108, 117, 125, 0.1);
-}
-
-/* ============================================ */
-/* 7. ANIMACIONES                               */
-/* ============================================ */
+/* Animación fade-in */
 .fade-in {
   animation: fadeIn 0.4s ease;
 }
@@ -223,21 +193,4 @@ select.custom-control option {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================================ */
-/* 8. RESPONSIVE                                */
-/* ============================================ */
-@media (max-width: 768px) {
-  .custom-input-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .input-icon {
-    width: 100%;
-    height: 40px;
-    border-right: none;
-    border-bottom: 1px solid var(--separator-color);
-  }
 }

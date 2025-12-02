@@ -1,1 +1,208 @@
-<p>courses-new works!</p>
+<div class="edit-container">
+
+    <div class="edit-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Crear Curso</h1>
+            <p class="hero-subtitle text-white-50">Completa los datos para crear un nuevo curso</p>
+        </div>
+    </div>
+
+    <div class="container container-xl content-padding">
+
+        <button class="btn btn-link text-decoration-none text-muted mb-4 ps-0" (click)="goBack()">
+            <i class="bi bi-arrow-left me-2"></i> Volver a mis cursos
+        </button>
+
+        <div *ngIf="loading" class="text-center py-5 my-5">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status"></div>
+            <p class="mt-3 text-muted">Cargando formulario...</p>
+        </div>
+
+        <div *ngIf="error && !loading" class="alert alert-danger text-center shadow-sm border-0 mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+        </div>
+
+        <div *ngIf="success" class="alert alert-success text-center shadow-sm border-0 mb-4 fade-in">
+            <i class="bi bi-check-circle-fill me-2"></i> Curso creado correctamente
+        </div>
+
+        <div *ngIf="!loading" class="edit-panel">
+
+            <form [formGroup]="courseForm" (ngSubmit)="submitCourse()">
+
+                <!-- ------------------ Información Básica ------------------ -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-book"></i></div>
+                    <h4 class="section-title mb-0">Información Básica</h4>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Título <span class="text-danger">*</span></label>
+                        <div class="custom-input-group" [class.border-danger]="isFieldInvalid('title')">
+                            <div class="input-icon"><i class="bi bi-card-text"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="title"
+                                placeholder="Ej. Programación en Angular">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Categoría</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-tags"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="category"
+                                placeholder="Ej. Desarrollo Web">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Nivel</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-bar-chart-line"></i></div>
+                            <select class="form-select custom-control" formControlName="level">
+                                <option value="">Seleccionar nivel...</option>
+                                <option value="beginner">Principiante</option>
+                                <option value="intermediate">Intermedio</option>
+                                <option value="advanced">Avanzado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Duración</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-clock"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="duration"
+                                placeholder="Ej. 10 horas">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Precio</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-currency-dollar"></i></div>
+                            <input type="number" class="form-control custom-control" formControlName="price"
+                                placeholder="0.00" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Número Máximo de Estudiantes</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-people-fill"></i></div>
+                            <input type="number" class="form-control custom-control" formControlName="max_students"
+                                placeholder="50" min="1">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" formControlName="description" rows="4"
+                            placeholder="Breve descripción del curso..."></textarea>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Color del Curso</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-palette"></i></div>
+                            <select class="form-select custom-control" formControlName="color">
+                                <option *ngFor="let c of colors" [value]="c.value">{{ c.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">URL de Portada</label>
+                        <div class="custom-input-group" [class.border-danger]="isFieldInvalid('cover_url')">
+                            <div class="input-icon"><i class="bi bi-image"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="cover_url"
+                                placeholder="https://...">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="divider my-5">
+
+                <!-- ------------------ Horario ------------------ -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-calendar3"></i></div>
+                    <h4 class="section-title mb-0">Horario del Curso</h4>
+                </div>
+
+                <div formArrayName="schedule" class="row g-4">
+                    <div *ngFor="let s of scheduleControls.controls; let i=index" [formGroupName]="i"
+                        class="col-md-12 d-flex gap-3 align-items-end mb-3">
+                        <input type="text" class="form-control" formControlName="day" placeholder="Día">
+                        <input type="time" class="form-control" formControlName="start_time">
+                        <input type="time" class="form-control" formControlName="end_time">
+                        <button type="button" class="btn btn-outline-danger" (click)="removeSchedule(i)"><i
+                                class="bi bi-trash"></i></button>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" class="btn btn-outline-success" (click)="addSchedule()"><i
+                                class="bi bi-plus"></i> Agregar horario</button>
+                    </div>
+                </div>
+
+                <hr class="divider my-5">
+
+                <!-- ------------------ Configuración ------------------ -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-gear-fill"></i></div>
+                    <h4 class="section-title mb-0">Configuración del Curso</h4>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4 d-flex align-items-center gap-2">
+                        <input type="checkbox" formControlName="allow_comments" id="allow_comments">
+                        <label for="allow_comments">Permitir comentarios</label>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center gap-2">
+                        <input type="checkbox" formControlName="allow_certificates" id="allow_certificates">
+                        <label for="allow_certificates">Permitir certificados</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Intentos máximos</label>
+                        <input type="number" class="form-control" formControlName="max_attempts" min="1">
+                    </div>
+                </div>
+
+                <hr class="divider my-5">
+
+                <!-- ------------------ Estado ------------------ -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-toggle-on"></i></div>
+                    <h4 class="section-title mb-0">Estado del Curso</h4>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Activo</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" formControlName="is_active" id="is_active">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------ Botones ------------------ -->
+                <div class="d-flex justify-content-end align-items-center gap-3 mt-5 pt-3">
+                    <button type="button" class="btn btn-outline-secondary px-4 rounded-pill fw-bold"
+                        (click)="goBack()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-save" [disabled]="saving">
+                        <span *ngIf="saving" class="d-flex align-items-center gap-2">
+                            <div class="spinner-border spinner-border-sm" role="status"></div>
+                            Creando...
+                        </span>
+                        <span *ngIf="!saving" class="d-flex align-items-center gap-2">
+                            <i class="bi bi-save"></i> Crear Curso
+                        </span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

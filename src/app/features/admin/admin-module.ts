@@ -27,6 +27,7 @@ import { StudentDetail } from './student-detail/student-detail';
 import { SubscriptionDetail } from './subscription-detail/subscription-detail';
 import { TeacherDetail } from './teacher-detail/teacher-detail';
 import { TeacherSubscriptionDetail } from './teacher-subscription-detail/teacher-subscription-detail';
+import { TeacherApplications } from './teacher-applications/teacher-applications';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { TeacherSubscriptionDetail } from './teacher-subscription-detail/teacher
     StudentDetail,
     SubscriptionDetail,
     TeacherDetail,
-    TeacherSubscriptionDetail
+    TeacherSubscriptionDetail,
+    TeacherApplications
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,149 @@
+/* ============================================ */
+/* 1. VARIABLES & THEME                         */
+/* ============================================ */
+:host {
+  --bg-page: var(--surface-light);
+  --bg-panel: #ffffff;
+  --border-panel: rgba(0,0,0,0.08);
+
+  --text-main: var(--text-light);
+  --text-muted-local: var(--muted-light);
+
+  /* Iconos y Decoración (Light) */
+  --icon-bg: rgba(26, 188, 156, 0.1);
+  --icon-color: var(--brand-green);
+  --card-hover-bg: #f8f9fa;
+
+  /* HERO BG */
+  --hero-bg: var(--brand-green);
+
+  display: block;
+}
+
+:host-context([data-bs-theme="dark"]) {
+  --bg-page: var(--surface-dark);
+  --bg-panel: #252525;
+  --border-panel: rgba(255,255,255,0.08);
+
+  --text-main: var(--text-dark);
+  --text-muted-local: var(--muted-dark);
+
+  --icon-bg: rgba(255, 255, 255, 0.05);
+  --icon-color: #58d68d;
+  --card-hover-bg: rgba(255,255,255,0.03);
+
+  --hero-bg: #114e3e;
+}
+
+/* ============================================ */
+/* 2. LAYOUT PRINCIPAL                          */
+/* ============================================ */
+
+.detail-container {
+  background-color: var(--bg-page);
+  min-height: 100vh;
+  display: block;
+}
+
+.detail-hero {
+  background-color: var(--hero-bg);
+  min-height: 160px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.content-padding {
+  padding-bottom: 4rem;
+}
+
+/* LABEL SECTIONS */
+.section-label {
+  color: var(--text-muted-local);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--brand-green);
+}
+
+/* ============================================ */
+/* 3. DETAIL CARDS                              */
+/* ============================================ */
+
+.detail-card {
+  background-color: var(--bg-panel);
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-panel);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+.detail-card:hover {
+  background-color: var(--card-hover-bg);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  background-color: var(--icon-bg);
+  color: var(--icon-color);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.detail-content .label {
+  font-size: 0.8rem;
+  color: var(--text-muted-local);
+  margin-bottom: 2px;
+}
+
+.detail-content .value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* ============================================ */
+/* 4. BUTTONS                                   */
+/* ============================================ */
+
+.btn-edit {
+  background-color: transparent;
+  border: 2px solid var(--border-panel);
+  color: var(--text-main);
+  border-radius: 50px;
+  padding: 8px 24px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: var(--brand-green);
+  border-color: var(--brand-green);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+}
+
+/* ============================================ */
+/* 5. EMPTY STATE                               */
+/* ============================================ */
+
+.text-muted {
+  color: var(--text-muted-local) !important;
+}

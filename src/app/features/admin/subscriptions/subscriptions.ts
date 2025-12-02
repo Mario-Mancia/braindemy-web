@@ -41,7 +41,7 @@ export class Subscriptions implements OnInit {
         next: (res) => {
 
           // Se espera que el backend responda: { data: [...] }
-          this.subscriptions = res.data || [];
+          this.subscriptions = res || [];
 
           console.log(
             `%c[SUBSCRIPTIONS] Suscripciones cargadas correctamente: ${this.subscriptions.length}`,

@@ -6,11 +6,13 @@ import { Auth } from './auth';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TeacherApplication } from './teacher-application/teacher-application';
 
 
 @NgModule({
   declarations: [
-    Auth
+    Auth,
+    TeacherApplication
   ],
   imports: [
     CommonModule,
