@@ -1,0 +1,199 @@
+<div class="edit-container">
+
+    <div class="edit-hero d-flex align-items-center">
+        <div class="container container-xl py-5">
+            <h1 class="fw-bold mb-2 text-white">Detalles de Teacher</h1>
+            <p class="hero-subtitle text-white-50">Consulta o edita la información del perfil seleccionado</p>
+        </div>
+    </div>
+
+    <div class="container container-xl content-padding">
+
+        <button class="btn btn-link text-decoration-none text-muted mb-4 ps-0" (click)="goBack()">
+            <i class="bi bi-arrow-left me-2"></i> Volver a la lista
+        </button>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="text-center py-5 my-5">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status"></div>
+            <p class="mt-3 text-muted">Cargando datos del teacher...</p>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="error && !loading" class="alert alert-danger text-center shadow-sm border-0 mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+        </div>
+
+        <!-- Success -->
+        <div *ngIf="success" class="alert alert-success text-center shadow-sm border-0 mb-4 fade-in">
+            <i class="bi bi-check-circle-fill me-2"></i> Cambios guardados correctamente
+        </div>
+
+        <div *ngIf="!loading" class="edit-panel">
+
+            <!-- Checkbox para habilitar edición -->
+            <div class="form-check form-switch mb-4">
+                <input type="checkbox" class="form-check-input" id="editModeToggle" (change)="toggleEditMode($event)">
+                <label class="form-check-label fw-semibold" for="editModeToggle">
+                    Habilitar edición
+                </label>
+            </div>
+
+            <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+
+                <!-- SECTION: Información General -->
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-person-badge-fill"></i></div>
+                    <h4 class="section-title mb-0">Información General</h4>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label">User ID (No editable)</label>
+                        <div class="custom-input-group disabled-group">
+                            <div class="input-icon"><i class="bi bi-hash"></i></div>
+                            <input type="text" class="form-control custom-control text-muted" formControlName="user_id" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">URL de Imagen</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-image"></i></div>
+                            <input type="text" class="form-control custom-control" formControlName="image_url"
+                                   [readonly]="!editEnabled" placeholder="Ej. https://imagen.com/foto.png">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Biografía</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-journal-text"></i></div>
+                            <textarea class="form-control custom-control" rows="3"
+                                      formControlName="bio" [readonly]="!editEnabled"
+                                      placeholder="Escribe una breve biografía..."></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- SECTION: Información Profesional -->
+                <hr class="divider my-5">
+
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-mortarboard"></i></div>
+                    <h4 class="section-title mb-0">Información Profesional</h4>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Especialidad</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-award"></i></div>
+                            <input type="text" class="form-control custom-control"
+                                   formControlName="specialty" [readonly]="!editEnabled"
+                                   placeholder="Ej. Desarrollo Web, IA, Matemáticas...">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Experiencia (No editable)</label>
+                        <div class="custom-input-group disabled-group">
+                            <div class="input-icon"><i class="bi bi-briefcase"></i></div>
+                            <input type="text" class="form-control custom-control text-muted"
+                                   formControlName="experience" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Portafolio (No editable)</label>
+                        <div class="custom-input-group disabled-group">
+                            <div class="input-icon"><i class="bi bi-link-45deg"></i></div>
+                            <input type="text" class="form-control custom-control text-muted"
+                                   formControlName="portfolio_url" readonly>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- SECTION: Métricas y Ranking -->
+                <hr class="divider my-5">
+
+                <div class="d-flex align-items-center mb-4">
+                    <div class-section-icon me-3><i class="bi bi-graph-up-arrow"></i></div>
+                    <h4 class="section-title mb-0">Métricas</h4>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Rating (0–5)</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-star-fill"></i></div>
+                            <input type="number" step="0.1" class="form-control custom-control"
+                                   formControlName="rating" [readonly]="!editEnabled">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Cursos Activos</label>
+                        <div class="custom-input-group">
+                            <div class="input-icon"><i class="bi bi-collection-play"></i></div>
+                            <input type="number" class="form-control custom-control"
+                                   formControlName="active_courses_count" [readonly]="!editEnabled">
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- SECTION: Auditoría -->
+                <hr class="divider my-5">
+
+                <div class="d-flex align-items-center mb-4">
+                    <div class="section-icon me-3"><i class="bi bi-clock-history"></i></div>
+                    <h4 class="section-title mb-0">Auditoría</h4>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Creado En</label>
+                        <div class="custom-input-group disabled-group">
+                            <div class="input-icon"><i class="bi bi-calendar-event"></i></div>
+                            <input type="text" class="form-control custom-control text-muted"
+                                   formControlName="created_at" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Última Actualización</label>
+                        <div class="custom-input-group disabled-group">
+                            <div class="input-icon"><i class="bi bi-clock"></i></div>
+                            <input type="text" class="form-control custom-control text-muted"
+                                   formControlName="updated_at" readonly>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- SECTION: Botón Guardar -->
+                <hr class="divider my-5">
+                <div class="text-end">
+                    <button class="btn btn-success px-4" type="submit" [disabled]="!editEnabled">
+                        <i class="bi bi-save me-2"></i> Guardar Cambios
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

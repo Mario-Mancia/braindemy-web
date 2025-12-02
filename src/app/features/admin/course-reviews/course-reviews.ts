@@ -141,6 +141,6 @@ export class CourseReviews implements OnInit{
   // NAVEGACIÓN
   // -------------------------------------
   goToDetail(id: string) {
-    this.router.navigate(['/admin/review-detail', id]);
+    this.router.navigate(['/admin/course-review-detail', id]);
   }
 }

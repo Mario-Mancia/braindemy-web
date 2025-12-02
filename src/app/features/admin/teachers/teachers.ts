@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-teachers',

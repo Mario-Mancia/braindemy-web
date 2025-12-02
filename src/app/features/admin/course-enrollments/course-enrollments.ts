@@ -109,6 +109,6 @@ export class CourseEnrollments implements OnInit {
   // NAVEGACIÓN
   // -------------------------------------
   goToDetail(id: string) {
-    this.router.navigate(['/admin/enrollment-detail', id]);
+    this.router.navigate(['/admin/course-enrollment-detail', id]);
   }
 }

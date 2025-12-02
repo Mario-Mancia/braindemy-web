@@ -21,7 +21,7 @@ export class Payments implements OnInit {
     user_id: '',
     status: '',
     course_id: '',
-    date: ''   // <---- reemplazo de los antiguos from/to
+    date: ''
   };
 
   constructor(
@@ -53,7 +53,7 @@ export class Payments implements OnInit {
     if (this.filters.user_id)   params.user_id = this.filters.user_id;
     if (this.filters.status)    params.status = this.filters.status;
     if (this.filters.course_id) params.course_id = this.filters.course_id;
-    if (this.filters.date)      params.date = this.filters.date;  // <---- el nuevo filtro único
+    if (this.filters.date)      params.date = this.filters.date;
 
     console.info("[PAYMENTS] Cargando con:", params);
 
@@ -78,7 +78,7 @@ export class Payments implements OnInit {
       user_id: '',
       status: '',
       course_id: '',
-      date: ''   // <---- reset correcto del nuevo filtro
+      date: ''
     };
 
     this.loadPayments();

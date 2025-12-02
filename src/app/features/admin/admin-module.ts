@@ -19,6 +19,14 @@ import { Subscriptions } from './subscriptions/subscriptions';
 import { TeacherSubscriptions } from './teacher-subscriptions/teacher-subscriptions';
 import { Teachers } from './teachers/teachers';
 import { Students } from './students/students';
+import { CourseEnrollmentDetail } from './course-enrollment-detail/course-enrollment-detail';
+import { CourseReviewDetail } from './course-review-detail/course-review-detail';
+import { CourseDetail } from './course-detail/course-detail';
+import { PaymentDetail } from './payment-detail/payment-detail';
+import { StudentDetail } from './student-detail/student-detail';
+import { SubscriptionDetail } from './subscription-detail/subscription-detail';
+import { TeacherDetail } from './teacher-detail/teacher-detail';
+import { TeacherSubscriptionDetail } from './teacher-subscription-detail/teacher-subscription-detail';
 
 @NgModule({
   declarations: [
@@ -36,7 +44,15 @@ import { Students } from './students/students';
     Subscriptions,
     TeacherSubscriptions,
     Teachers,
-    Students
+    Students,
+    CourseEnrollmentDetail,
+    CourseReviewDetail,
+    CourseDetail,
+    PaymentDetail,
+    StudentDetail,
+    SubscriptionDetail,
+    TeacherDetail,
+    TeacherSubscriptionDetail
   ],
   imports: [
     CommonModule,

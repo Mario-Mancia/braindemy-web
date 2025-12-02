@@ -110,11 +110,11 @@ export class Students implements OnInit {
   // NAVEGACIÓN
   // ====================================================
   goToDetail(id: string) {
-    this.router.navigate(['/admin/students', id]);
+    this.router.navigate(['/admin/student-detail', id]);
   }
 
   goToEdit(id: string) {
-    this.router.navigate(['/admin/students/edit', id]);
+    this.router.navigate(['/admin/student-edit', id]);
   }
 
 }
